@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Taxonomy Tool for Higher Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        /* Apply Inter font globally */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Lighter gray background */
+        }
+        /* Style for details summary */
+        summary {
+            cursor: pointer;
+            font-weight: 500;
+            color: #3b82f6; /* Blue-500 */
+            margin-bottom: 0.5rem;
+            display: inline-block; /* Prevent full width */
+        }
+        summary:hover {
+            color: #2563eb; /* Blue-600 */
+        }
+        /* Add a little arrow indicator */
+        summary::marker {
+            content: '▶ ';
+            font-size: 0.8em;
+        }
+        details[open] summary::marker {
+            content: '▼ ';
+        }
+        /* Style for the result box */
+        #resultBox {
+            border-left-width: 4px;
+            padding: 1.5rem; /* Increased padding */
+            margin-top: 1.5rem;
+            border-radius: 0.375rem; /* md rounded */
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); /* Subtle shadow */
+        }
+        /* Result category colors */
+        .result-human-led { border-color: #ef4444; background-color: #fee2e2; } /* Red */
+        .result-ai-assisted { border-color: #f97316; background-color: #ffedd5; } /* Orange */
+        .result-high-automation { border-color: #84cc16; background-color: #ecfccb; } /* Lime */
+        .result-full-automation { border-color: #22c55e; background-color: #dcfce7; } /* Green */
+        .result-default { border-color: #6b7280; background-color: #f3f4f6; } /* Gray */
+
+        /* Ensure textareas are reasonably sized */
+        textarea {
+            min-height: 90px; /* Slightly taller */
+        }
+
+        /* Styling for the visual model diagram */
+        .diagram-box {
+            border: 1px solid #cbd5e1; /* Gray-300 */
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem; /* md */
+            text-align: center;
+            font-size: 0.875rem; /* sm */
+            background-color: #f8fafc; /* Gray-50 */
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            min-height: 60px; /* Ensure consistent height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .diagram-arrow {
+            font-size: 1.5rem; /* xl */
+            color: #9ca3af; /* Gray-400 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+        }
+        .fieldset-legend {
+             font-size: 1.125rem; /* lg */
+             font-weight: 600; /* semibold */
+             color: #1f2937; /* Gray-800 */
+             padding: 0 0.5rem;
+             margin-bottom: 0.5rem; /* Add space below legend */
+        }
+        fieldset {
+            background-color: #ffffff; /* White background for fieldsets */
+            border: 1px solid #e5e7eb; /* Gray-200 border */
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+        /* Improve focus states */
+        input:focus, select:focus, textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+            outline: none;
+        }
+        /* Button styling */
+         .action-button {
+            padding: 0.75rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem; /* lg */
+            shadow-md;
+            transition: all 0.2s ease-in-out;
+            focus:outline-none;
+            focus:ring-2;
+            focus:ring-offset-2;
+         }
+         .submit-button {
+            background-color: #2563eb; /* Blue-600 */
+            color: white;
+            hover:bg-blue-700;
+            focus:ring-blue-500;
+         }
+         .export-button {
+            background-color: #16a34a; /* Green-600 */
+            color: white;
+            hover:bg-green-700;
+            focus:ring-green-500;
+            margin-left: 1rem; /* Space between buttons */
+         }
+
+         /* Styles for the content specifically formatted for PDF export */
+         /* These are basic styles; PDF rendering might vary */
+         #pdfContent {
+             font-family: sans-serif; /* Use standard fonts for PDF */
+             padding: 20px;
+             color: #333;
+         }
+         #pdfContent h1 { font-size: 18pt; margin-bottom: 15px; color: #111; }
+         #pdfContent h2 { font-size: 14pt; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #222; }
+         #pdfContent h3 { font-size: 12pt; margin-top: 15px; margin-bottom: 5px; color: #444; }
+         #pdfContent p { font-size: 10pt; line-height: 1.4; margin-bottom: 8px; }
+         #pdfContent .label { font-weight: bold; }
+         #pdfContent .notes { font-style: italic; color: #555; margin-left: 15px; font-size: 9pt; }
+         #pdfContent .result-section { margin-top: 25px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9; }
+         #pdfContent .result-category { font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+         #pdfContent .result-rationale { font-size: 10pt; }
+         #pdfContent .result-disclaimer { font-size: 8pt; color: #777; margin-top: 15px; }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+    <div class="max-w-6xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-lg">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">AI Task Taxonomy Evaluation Tool</h1>
+        <p class="text-gray-600 mb-8 text-center">Evaluate Higher Education tasks for AI integration potential using the framework below.</p>
+
+        <div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3 text-center">Framework Overview</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                <div class="diagram-box bg-blue-100 border-blue-300 text-blue-800">Input:<br>Specific HEI Task</div>
+                <div class="diagram-arrow hidden md:block">→</div>
+                <div class="diagram-box bg-yellow-100 border-yellow-300 text-yellow-800">Evaluation:<br>6 Dimensions</div>
+                <div class="diagram-arrow hidden md:block">→</div>
+                <div class="diagram-box bg-green-100 border-green-300 text-green-800">Output:<br>4 Categories</div>
+            </div>
+        </div>
+
+        <form id="taxonomyForm" class="space-y-8">
+
+            <fieldset class="border border-gray-300 p-5 rounded-md">
+                <legend class="fieldset-legend">Task Identification</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                    <div>
+                        <label for="taskName" class="block text-sm font-medium text-gray-700 mb-1">Task Name:</label>
+                        <input type="text" id="taskName" name="taskName" required placeholder="e.g., Grading MCQs for Intro Course" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="evaluator" class="block text-sm font-medium text-gray-700 mb-1">Evaluator(s):</label>
+                        <input type="text" id="evaluator" name="evaluator" placeholder="e.g., John Doe, Curriculum Committee" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="evalDate" class="block text-sm font-medium text-gray-700 mb-1">Date:</label>
+                        <input type="date" id="evalDate" name="evalDate" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="stakeholders" class="block text-sm font-medium text-gray-700 mb-1">Key Stakeholders:</label>
+                        <input type="text" id="stakeholders" name="stakeholders" placeholder="e.g., Students, Faculty, Admin Staff, IT" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col">
+                    <legend class="fieldset-legend">1. Task Nature & Complexity</legend>
+                    <p class="text-sm text-gray-500 mb-3 -mt-2">Assess the core characteristics of the task.</p>
+                    <details class="text-sm text-gray-600 mb-4">
+                        <summary>Guiding Questions</summary>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>How repetitive vs. variable is this task?</li>
+                            <li>What level of cognitive effort is required (rule-following, analysis, creativity, judgment)?</li>
+                            <li>How reliant is it on large datasets? Structured or unstructured data?</li>
+                            <li>Does it require novel solutions or creative input?</li>
+                        </ul>
+                    </details>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Primary Nature:</label>
+                        <select id="taskNature" name="taskNature" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">-- Select Nature --</option>
+                            <option value="repetitive">Highly Repetitive / Rule-Based</option>
+                            <option value="analytical">Analytical / Data Processing</option>
+                            <option value="creative">Creative / Novel Solution Required</option>
+                            <option value="judgment">Complex Judgment / Strategic</option>
+                        </select>
+                    </div>
+                    <div class="mt-auto">
+                        <label for="notesNature" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label>
+                        <textarea id="notesNature" name="notesNature" rows="3" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col">
+                    <legend class="fieldset-legend">2. Risk, Safety & Security</legend>
+                    <p class="text-sm text-gray-500 mb-3 -mt-2">Evaluate potential downsides and dangers.</p>
+                    <details class="text-sm text-gray-600 mb-4">
+                        <summary>Guiding Questions</summary>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                             <li>What sensitive data is involved? Risk level of breach/misuse? (Data Privacy/Security)</li>
+                             <li>Could AI introduce/amplify bias? (Algorithmic Bias)</li>
+                             <li>Potential for physical or psychological harm? (Safety)</li>
+                             <li>Impact on academic integrity?</li>
+                             <li>Potential reputational damage?</li>
+                             <li>Operational impact if AI fails? Fallback?</li>
+                        </ul>
+                    </details>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Overall Risk Assessment:</label>
+                        <select id="riskLevel" name="riskLevel" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">-- Select Risk Level --</option>
+                            <option value="low">Low Risk</option>
+                            <option value="medium">Medium Risk (Mitigation Possible)</option>
+                            <option value="high">High Risk (Significant Concerns)</option>
+                        </select>
+                    </div>
+                     <div class="mt-auto">
+                        <label for="notesRisk" class="block text-sm font-medium text-gray-700 mb-1">Key Risks & Potential Mitigation Notes:</label>
+                        <textarea id="notesRisk" name="notesRisk" rows="3" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                </fieldset>
+
+                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col">
+                    <legend class="fieldset-legend">3. Ethical Considerations</legend>
+                    <p class="text-sm text-gray-500 mb-3 -mt-2">Consider fairness, transparency, and accountability.</p>
+                    <details class="text-sm text-gray-600 mb-4">
+                        <summary>Guiding Questions</summary>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                             <li>How can fairness and equity be ensured?</li>
+                             <li>Is the AI process transparent and explainable?</li>
+                             <li>Who is accountable for outcomes?</li>
+                             <li>Does it respect human dignity and autonomy? Avoid deception?</li>
+                             <li>Environmental impact concerns?</li>
+                        </ul>
+                    </details>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Overall Ethical Concern Level:</label>
+                        <select id="ethicsLevel" name="ethicsLevel" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">-- Select Concern Level --</option>
+                            <option value="low">Low Concern</option>
+                            <option value="medium">Medium Concern (Requires Safeguards)</option>
+                            <option value="high">High Concern (Significant Issues)</option>
+                        </select>
+                    </div>
+                     <div class="mt-auto">
+                        <label for="notesEthics" class="block text-sm font-medium text-gray-700 mb-1">Key Ethical Issues & Safeguard Notes:</label>
+                        <textarea id="notesEthics" name="notesEthics" rows="3" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                </fieldset>
+
+                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col">
+                    <legend class="fieldset-legend">4. Stakeholder Value & Impact</legend>
+                    <p class="text-sm text-gray-500 mb-3 -mt-2">Assess the benefits and effects on different groups.</p>
+                    <details class="text-sm text-gray-600 mb-4">
+                        <summary>Guiding Questions</summary>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                             <li>Students: Impact on learning, experience, accessibility?</li>
+                             <li>Staff: Impact on workload, job satisfaction, capacity?</li>
+                             <li>Institution: Efficiency? Cost? Research? Strategy alignment?</li>
+                             <li>Society: Broader implications?</li>
+                        </ul>
+                    </details>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Overall Value Proposition:</label>
+                        <select id="valueLevel" name="valueLevel" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">-- Select Value Level --</option>
+                            <option value="low">Low Value / Minimal Impact</option>
+                            <option value="medium">Medium Value / Moderate Benefits</option>
+                            <option value="high">High Value / Significant Benefits</option>
+                        </select>
+                    </div>
+                     <div class="mt-auto">
+                        <label for="notesValue" class="block text-sm font-medium text-gray-700 mb-1">Key Impacts (Positive/Negative) & Stakeholder Notes:</label>
+                        <textarea id="notesValue" name="notesValue" rows="3" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col">
+                    <legend class="fieldset-legend">5. Human Element Requirement</legend>
+                    <p class="text-sm text-gray-500 mb-3 -mt-2">Determine the need for human skills like empathy or judgment.</p>
+                     <details class="text-sm text-gray-600 mb-4">
+                        <summary>Guiding Questions</summary>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                             <li>How critical are empathy, pastoral care, nuanced skills?</li>
+                             <li>Does it involve significant mentorship or guidance?</li>
+                             <li>Does it require handling sensitive, high-stakes communication?</li>
+                             <li>Is building relationships/community central?</li>
+                        </ul>
+                    </details>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Necessity of Human Element:</label>
+                        <select id="humanElement" name="humanElement" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">-- Select Necessity --</option>
+                            <option value="not_required">Not Required / Minimal</option>
+                            <option value="beneficial">Beneficial but Not Essential</option>
+                            <option value="important">Important / Significant</option>
+                            <option value="essential">Essential / Critical</option>
+                        </select>
+                    </div>
+                     <div class="mt-auto">
+                        <label for="notesHuman" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label>
+                        <textarea id="notesHuman" name="notesHuman" rows="3" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col">
+                    <legend class="fieldset-legend">6. Feasibility & Implementation</legend>
+                    <p class="text-sm text-gray-500 mb-3 -mt-2">Evaluate the practical aspects of using AI.</p>
+                     <details class="text-sm text-gray-600 mb-4">
+                        <summary>Guiding Questions</summary>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                             <li>Is suitable AI tech mature and reliable?</li>
+                             <li>Is sufficient, high-quality, unbiased data available?</li>
+                             <li>What are the estimated costs (dev, purchase, maintenance)?</li>
+                             <li>What staff skills/training are needed? Available?</li>
+                             <li>Existing policies, regulations, or agreements impacting this?</li>
+                        </ul>
+                    </details>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Overall Feasibility:</label>
+                        <select id="feasibility" name="feasibility" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">-- Select Feasibility --</option>
+                            <option value="low">Low Feasibility (Significant Barriers)</option>
+                            <option value="medium">Medium Feasibility (Challenges Exist)</option>
+                            <option value="high">High Feasibility (Likely Achievable)</option>
+                        </select>
+                    </div>
+                     <div class="mt-auto">
+                        <label for="notesFeasibility" class="block text-sm font-medium text-gray-700 mb-1">Key Barriers & Resource Implication Notes:</label>
+                        <textarea id="notesFeasibility" name="notesFeasibility" rows="3" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                </fieldset>
+            </div> <div class="text-center pt-6">
+                <button type="submit" class="action-button submit-button">
+                    Determine Suggested Category
+                </button>
+                <button type="button" id="exportPdfButton" class="action-button export-button hidden">
+                    Export Results to PDF
+                </button>
+            </div>
+        </form>
+
+        <div id="resultArea" class="mt-10 hidden">
+             <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Evaluation Result</h2>
+             <div id="resultBox" class="result-default max-w-3xl mx-auto">
+                 <p id="resultCategory" class="font-bold text-lg mb-2"></p>
+                 <p id="resultRationale" class="text-gray-700 text-base"></p>
+                 <p id="resultDisclaimer" class="text-sm text-gray-600 mt-4 italic"></p>
+             </div>
+        </div>
+
+        <div id="pdfContent" class="hidden"></div>
+
+    </div>
+
+    <script>
+        // Get form and result elements
+        const form = document.getElementById('taxonomyForm');
+        const resultArea = document.getElementById('resultArea');
+        const resultBox = document.getElementById('resultBox');
+        const resultCategory = document.getElementById('resultCategory');
+        const resultRationale = document.getElementById('resultRationale');
+        const resultDisclaimer = document.getElementById('resultDisclaimer');
+        const exportPdfButton = document.getElementById('exportPdfButton');
+        const pdfContentDiv = document.getElementById('pdfContent'); // Div for PDF structure
+
+        // Store result data globally within the script scope for PDF export
+        let currentResultData = null;
+
+        // Function to get selected text from a dropdown
+        function getSelectedText(elementId) {
+            const select = document.getElementById(elementId);
+            if (select.selectedIndex === -1) {
+                return 'N/A'; // Or empty string
+            }
+            return select.options[select.selectedIndex].text;
+        }
+
+        // Add event listener for form submission
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // --- Read values from the form ---
+            const taskNatureVal = document.getElementById('taskNature').value;
+            const riskLevelVal = document.getElementById('riskLevel').value;
+            const ethicsLevelVal = document.getElementById('ethicsLevel').value;
+            const valueLevelVal = document.getElementById('valueLevel').value;
+            const humanElementVal = document.getElementById('humanElement').value;
+            const feasibilityVal = document.getElementById('feasibility').value;
+
+            // --- Basic Validation ---
+            if (!taskNatureVal || !riskLevelVal || !ethicsLevelVal || !valueLevelVal || !humanElementVal || !feasibilityVal) {
+                 const firstInvalid = form.querySelector('select:invalid');
+                 if(firstInvalid) { firstInvalid.focus(); }
+                 alert('Please fill in all required assessment fields (dropdowns).');
+                 exportPdfButton.classList.add('hidden'); // Hide export button if validation fails
+                 currentResultData = null; // Clear previous results
+                 resultArea.classList.add('hidden'); // Hide result area
+                 return;
+            }
+
+            // --- Heuristic Logic to Determine Category (Same logic as before) ---
+            let suggestedCategory = "Undetermined";
+            let rationale = "";
+            let categoryClass = "result-default";
+
+            if (riskLevelVal === 'high' || ethicsLevelVal === 'high' || humanElementVal === 'essential') {
+                suggestedCategory = "Human-Led (No/Minimal AI)";
+                rationale = "High risk, ethical concerns, or essential human element strongly suggest minimal AI involvement. Focus on human capabilities for this task.";
+                 categoryClass = "result-human-led";
+            } else if (humanElementVal === 'important' || riskLevelVal === 'medium' || ethicsLevelVal === 'medium') {
+                suggestedCategory = "AI-Assisted (Human in Control)";
+                rationale = "Moderate risks/ethics or important human element indicate AI could assist, but requires significant human oversight, judgment, and control. Focus on augmentation.";
+                categoryClass = "result-ai-assisted";
+                if (valueLevelVal === 'low' || feasibilityVal === 'low') {
+                     rationale += " Low value or feasibility might further limit the scope of AI assistance.";
+                }
+            } else if (taskNatureVal === 'repetitive' || taskNatureVal === 'analytical') {
+                 if (feasibilityVal === 'high' && valueLevelVal !== 'low') {
+                     if (humanElementVal === 'beneficial') {
+                         suggestedCategory = "High Automation Potential (Human Supervising)";
+                         rationale = "Low risk/ethics, repetitive/analytical nature, and high feasibility suggest potential for significant automation. Human supervision for exceptions and oversight is likely needed.";
+                         categoryClass = "result-high-automation";
+                     } else { // humanElementVal == 'not_required'
+                         suggestedCategory = "Full Automation (Minimal Oversight Post-Setup)";
+                         rationale = "Very low risk/ethics/human need, combined with repetitive nature and high feasibility, points towards potential full automation. Focus on robust setup and monitoring.";
+                         categoryClass = "result-full-automation";
+                     }
+                 } else {
+                     suggestedCategory = "AI-Assisted (Human in Control)";
+                     rationale = "While the task nature suits automation, medium feasibility or lower value suggests starting with AI assistance under human control might be more practical.";
+                     categoryClass = "result-ai-assisted";
+                 }
+            } else {
+                 suggestedCategory = "AI-Assisted (Human in Control)";
+                 rationale = "Tasks requiring creativity or complex judgment, even with lower risk, usually benefit most from AI assistance rather than full automation. Human insight remains key.";
+                 categoryClass = "result-ai-assisted";
+            }
+
+             // --- Store results for PDF export ---
+             currentResultData = {
+                taskName: document.getElementById('taskName').value,
+                evaluator: document.getElementById('evaluator').value,
+                evalDate: document.getElementById('evalDate').value,
+                stakeholders: document.getElementById('stakeholders').value,
+                taskNature: getSelectedText('taskNature'),
+                notesNature: document.getElementById('notesNature').value,
+                riskLevel: getSelectedText('riskLevel'),
+                notesRisk: document.getElementById('notesRisk').value,
+                ethicsLevel: getSelectedText('ethicsLevel'),
+                notesEthics: document.getElementById('notesEthics').value,
+                valueLevel: getSelectedText('valueLevel'),
+                notesValue: document.getElementById('notesValue').value,
+                humanElement: getSelectedText('humanElement'),
+                notesHuman: document.getElementById('notesHuman').value,
+                feasibility: getSelectedText('feasibility'),
+                notesFeasibility: document.getElementById('notesFeasibility').value,
+                suggestedCategory: suggestedCategory,
+                rationale: rationale,
+                disclaimer: `Disclaimer: This is a preliminary suggestion based on the selected inputs. A thorough discussion involving relevant stakeholders is crucial for the final decision and defining necessary safeguards.` // Recreate disclaimer for PDF
+            };
+
+
+            // --- Display Results ---
+            resultCategory.textContent = `Suggested Category: ${suggestedCategory}`;
+            resultRationale.textContent = `Rationale: ${rationale}`;
+            resultDisclaimer.textContent = currentResultData.disclaimer; // Use stored disclaimer
+
+            resultBox.className = ''; // Clear existing classes first
+            resultBox.classList.add('resultBox', 'max-w-3xl', 'mx-auto', categoryClass);
+
+            resultArea.classList.remove('hidden'); // Show the result area
+            exportPdfButton.classList.remove('hidden'); // Show the export button
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Add event listener for PDF export button
+        exportPdfButton.addEventListener('click', function() {
+            if (!currentResultData) {
+                alert("Please determine the category first before exporting.");
+                return;
+            }
+
+            // --- Construct HTML content for the PDF ---
+            // Using the stored currentResultData
+            let pdfHTML = `
+                <h1>AI Task Taxonomy Evaluation Report</h1>
+                <h2>Task Identification</h2>
+                <p><span class="label">Task Name:</span> ${currentResultData.taskName || 'N/A'}</p>
+                <p><span class="label">Evaluator(s):</span> ${currentResultData.evaluator || 'N/A'}</p>
+                <p><span class="label">Date:</span> ${currentResultData.evalDate || 'N/A'}</p>
+                <p><span class="label">Key Stakeholders:</span> ${currentResultData.stakeholders || 'N/A'}</p>
+
+                <h2>Dimension Evaluation</h2>
+
+                <h3>1. Task Nature & Complexity</h3>
+                <p><span class="label">Assessment:</span> ${currentResultData.taskNature}</p>
+                <p class="notes"><span class="label">Notes:</span> ${currentResultData.notesNature || 'None'}</p>
+
+                <h3>2. Risk, Safety & Security</h3>
+                <p><span class="label">Assessment:</span> ${currentResultData.riskLevel}</p>
+                <p class="notes"><span class="label">Notes:</span> ${currentResultData.notesRisk || 'None'}</p>
+
+                <h3>3. Ethical Considerations</h3>
+                <p><span class="label">Assessment:</span> ${currentResultData.ethicsLevel}</p>
+                <p class="notes"><span class="label">Notes:</span> ${currentResultData.notesEthics || 'None'}</p>
+
+                <h3>4. Stakeholder Value & Impact</h3>
+                <p><span class="label">Assessment:</span> ${currentResultData.valueLevel}</p>
+                <p class="notes"><span class="label">Notes:</span> ${currentResultData.notesValue || 'None'}</p>
+
+                <h3>5. Human Element Requirement</h3>
+                <p><span class="label">Assessment:</span> ${currentResultData.humanElement}</p>
+                <p class="notes"><span class="label">Notes:</span> ${currentResultData.notesHuman || 'None'}</p>
+
+                <h3>6. Feasibility & Implementation</h3>
+                <p><span class="label">Assessment:</span> ${currentResultData.feasibility}</p>
+                <p class="notes"><span class="label">Notes:</span> ${currentResultData.notesFeasibility || 'None'}</p>
+
+                <div class="result-section">
+                    <h2>Evaluation Result</h2>
+                    <p class="result-category"><span class="label">Suggested Category:</span> ${currentResultData.suggestedCategory}</p>
+                    <p class="result-rationale"><span class="label">Rationale:</span> ${currentResultData.rationale}</p>
+                    <p class="result-disclaimer">${currentResultData.disclaimer}</p>
+                </div>
+            `;
+
+            // Put the constructed HTML into the hidden div
+            pdfContentDiv.innerHTML = pdfHTML;
+
+            // --- Configure html2pdf options ---
+            const filename = `AI_Taxonomy_Report_${currentResultData.taskName.replace(/[^a-z0-9]/gi, '_').toLowerCase() || 'task'}.pdf`;
+            const opt = {
+              margin:       [0.5, 0.5, 0.5, 0.5], // Margins in inches [top, left, bottom, right]
+              filename:     filename,
+              image:        { type: 'jpeg', quality: 0.98 },
+              html2canvas:  { scale: 2, useCORS: true }, // Improve resolution
+              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // --- Generate and save the PDF ---
+            // Use the hidden div as the source
+            html2pdf().from(pdfContentDiv).set(opt).save();
+
+        });
+
+        // Set default date to today
+        document.getElementById('evalDate').valueAsDate = new Date();
+
+    </script>
+
+</body>
+</html>
