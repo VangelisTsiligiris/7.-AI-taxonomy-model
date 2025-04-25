@@ -117,12 +117,11 @@
 
          /* Style to temporarily make PDF content renderable but off-screen */
          .pdf-render-area {
-             position: absolute !important;
-             left: -9999px !important;
-             top: auto !important;
-             width: 8.5in; /* Approximate page width for rendering */
-             visibility: visible !important;
-             background: white; /* Ensure background for rendering */
+            position: fixed !important;
+            inset: 0 !important;          /* full viewport */
+            background: #ffffff;
+            opacity: 0;                   /* invisible to the user */
+            z-index: -1;                  /* behind everything */
          }
     </style>
 </head>
@@ -163,6 +162,40 @@
                  </div>
              </div>
 
+             <!-- Output-category explanations -->
+<div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">
+      What the Four Suggested Categories Mean
+    </h2>
+  
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+      <div class="p-3 bg-white rounded border border-gray-200">
+        <strong>Human-Led (No / Minimal AI)</strong><br>
+        High-risk, ethically sensitive or empathy-heavy tasks.  
+        AI may provide very limited support, but humans stay fully responsible.
+      </div>
+  
+      <div class="p-3 bg-white rounded border border-gray-200">
+        <strong>AI-Assisted (Human in Control)</strong><br>
+        AI speeds up or augments parts of the work, yet humans still steer
+        decisions and remain accountable throughout.
+      </div>
+  
+      <div class="p-3 bg-white rounded border border-gray-200">
+        <strong>High Automation Potential (Human Supervising)</strong><br>
+        Most steps can run automatically, but routine human oversight is
+        advisable for edge cases, quality assurance and accountability.
+      </div>
+  
+      <div class="p-3 bg-white rounded border border-gray-200">
+        <strong>Full Automation (Minimal Oversight Post-Setup)</strong><br>
+        Well-defined, low-risk and repeatable tasks suitable for end-to-end
+        automation once properly configured and periodically monitored.
+      </div>
+    </div>
+  </div>
+
+  
             <div class="text-center mt-8">
                 <button data-target-page="taskIdentificationPage" class="action-button nav-button text-lg px-10 py-3 navigate-button">
                     Start Task Identification →
