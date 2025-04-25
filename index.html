@@ -84,7 +84,7 @@
         #stakeholderPrompts ul { list-style-type: disc; margin-left: 1.5rem; }
 
         /* Progress Indicator */
-        #progressIndicator { text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem; color: #4b5563; font-weight: 500; }
+        .progress-indicator { text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem; color: #4b5563; font-weight: 500; }
 
          /* PDF Export Styles */
          #pdfContent { font-family: sans-serif; padding: 20px; color: #333; }
@@ -106,6 +106,16 @@
          #pdfContent .question-answer { margin-left: 10px; font-size: 10pt; }
          #pdfContent .dimension-score-pdf { font-weight: bold; font-size: 11pt; margin-top: 5px; color: #0056b3; }
          #pdfContent .stakeholder-list-pdf { margin-top: 5px; font-size: 10pt; }
+
+         /* Style to temporarily make PDF content renderable but off-screen */
+         .pdf-render-area {
+             position: absolute !important;
+             left: -9999px !important;
+             top: auto !important;
+             width: 8.5in; /* Approximate page width for rendering */
+             visibility: visible !important;
+             background: white; /* Ensure background for rendering */
+         }
     </style>
 </head>
 <body class="bg-gray-100 p-4 md:p-8">
@@ -152,8 +162,9 @@
             </div>
         </div>
 
-        <div id="taskIdentificationPage" class="page">
-             <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Step 1 of 8: Task Identification</h1>
+        <div id="taskIdentificationPage" class="page" data-page-index="1">
+             <div class="progress-indicator">Step 1 of 9: Task Identification</div>
+             <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Task Identification</h1>
              <p class="text-gray-600 mb-8 text-center">Define the task you want to evaluate and identify the key stakeholders involved.</p>
 
              <form id="taskIdentificationForm" class="space-y-8">
@@ -194,14 +205,14 @@
                          ← Back to Description
                      </button>
                      <button type="button" data-target-page="evaluationPage_Nature" id="goToEvaluationButton" class="action-button nav-button navigate-button">
-                         Proceed to Evaluation →
+                         Proceed to Dimension 1 →
                      </button>
                  </div>
              </form>
         </div>
 
         <div id="evaluationPage_Nature" class="page" data-page-index="2">
-            <div id="progressIndicator">Step 2 of 8: Dimension 1 - Task Nature & Complexity</div>
+            <div class="progress-indicator">Step 2 of 9: Dimension 1 - Task Nature & Complexity</div>
             <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="nature">
                     <legend class="fieldset-legend">1. Task Nature & Complexity</legend>
@@ -241,7 +252,7 @@
         </div>
 
         <div id="evaluationPage_Risk" class="page" data-page-index="3">
-            <div id="progressIndicator">Step 3 of 8: Dimension 2 - Risk, Safety & Security</div>
+            <div class="progress-indicator">Step 3 of 9: Dimension 2 - Risk, Safety & Security</div>
              <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="risk">
                     <legend class="fieldset-legend">2. Risk, Safety & Security</legend>
@@ -281,7 +292,7 @@
         </div>
 
         <div id="evaluationPage_Ethics" class="page" data-page-index="4">
-            <div id="progressIndicator">Step 4 of 8: Dimension 3 - Ethical Considerations</div>
+            <div class="progress-indicator">Step 4 of 9: Dimension 3 - Ethical Considerations</div>
              <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="ethics">
                     <legend class="fieldset-legend">3. Ethical Considerations</legend>
@@ -321,7 +332,7 @@
         </div>
 
         <div id="evaluationPage_Value" class="page" data-page-index="5">
-            <div id="progressIndicator">Step 5 of 8: Dimension 4 - Stakeholder Value & Impact</div>
+            <div class="progress-indicator">Step 5 of 9: Dimension 4 - Stakeholder Value & Impact</div>
              <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="value">
                     <legend class="fieldset-legend">4. Stakeholder Value & Impact</legend>
@@ -362,7 +373,7 @@
         </div>
 
          <div id="evaluationPage_Human" class="page" data-page-index="6">
-             <div id="progressIndicator">Step 6 of 8: Dimension 5 - Human Element Requirement</div>
+             <div class="progress-indicator">Step 6 of 9: Dimension 5 - Human Element Requirement</div>
              <form class="dimension-form space-y-8">
                  <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="human">
                     <legend class="fieldset-legend">5. Human Element Requirement</legend>
@@ -402,7 +413,7 @@
         </div>
 
          <div id="evaluationPage_Feasibility" class="page" data-page-index="7">
-            <div id="progressIndicator">Step 7 of 8: Dimension 6 - Feasibility & Implementation</div>
+            <div class="progress-indicator">Step 7 of 9: Dimension 6 - Feasibility & Implementation</div>
              <form id="evaluationForm" class="dimension-form space-y-8"> <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="feasibility">
                     <legend class="fieldset-legend">6. Feasibility & Implementation</legend>
                     <p class="dimension-description">The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility.</p>
@@ -434,36 +445,40 @@
                       <button type="button" data-target-page="evaluationPage_Human" class="action-button back-button navigate-button">
                          ← Back
                      </button>
-                     <div> <button type="submit" class="action-button submit-button">
-                             Determine Suggested Category
-                         </button>
-                         <button type="button" id="exportPdfButton" class="action-button export-button hidden">
-                             Export Results to PDF
-                         </button>
-                     </div>
+                     <button type="submit" class="action-button submit-button">
+                         Calculate & View Results →
+                     </button>
                  </div>
             </form>
+        </div> <div id="resultsPage" class="page" data-page-index="8">
+            <div class="progress-indicator">Step 8 of 9: Evaluation Result</div>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Evaluation Result</h1>
 
-            <div id="resultArea" class="mt-10 hidden">
-                 <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Step 8 of 8: Evaluation Result</h2>
-                 <div id="resultBox" class="result-default max-w-3xl mx-auto">
-                     <p id="resultCategory" class="font-bold text-lg mb-2"></p>
-                     <p id="resultRationale" class="text-gray-700 text-base"></p>
+            <div id="resultArea" class="mt-6"> <div id="resultBox" class="result-default max-w-3xl mx-auto">
+                     <p id="resultCategory" class="font-bold text-lg mb-2">Suggested Category: [Calculating...]</p>
+                     <p id="resultRationale" class="text-gray-700 text-base">Rationale: [Calculating...]</p>
                      <p id="resultDisclaimer" class="text-sm text-gray-600 mt-4 italic"></p>
                  </div>
-                 <div class="text-center mt-6">
-                    <button type="button" data-target-page="landingPage" class="action-button back-button navigate-button">
+            </div>
+             <div class="page-navigation">
+                  <button type="button" data-target-page="evaluationPage_Feasibility" class="action-button back-button navigate-button">
+                     ← Back to Feasibility
+                 </button>
+                 <div> <button type="button" id="exportPdfButton" class="action-button export-button">
+                         Export Results to PDF
+                     </button>
+                     <button type="button" data-target-page="landingPage" class="action-button back-button navigate-button ml-4">
                         ← Start New Evaluation
                     </button>
                  </div>
-            </div>
-
+             </div>
         </div> <div id="pdfContent" class="hidden"></div>
 
     </div> <script>
         // --- Initialization ---
         const landingPage = document.getElementById('landingPage');
         const taskIdentificationPage = document.getElementById('taskIdentificationPage');
+        const resultsPage = document.getElementById('resultsPage'); // Added results page
         // Get all dimension pages
         const dimensionPages = document.querySelectorAll('.page[data-page-index]'); // Select dimension pages specifically
 
@@ -510,15 +525,19 @@
             const pageToShow = document.getElementById(pageId);
             if (pageToShow) {
                 pageToShow.classList.add('active'); // Show the target page
-                 // Update progress indicator if it's an evaluation page
-                 const progressIndicator = pageToShow.querySelector('#progressIndicator');
+                 // Update progress indicator if it exists on the page
+                 const progressIndicator = pageToShow.querySelector('.progress-indicator'); // Use class selector
                  if (progressIndicator) {
                      // Update text dynamically if needed, or ensure it's correct in HTML
+                     const pageIndex = pageToShow.dataset.pageIndex;
+                     if (pageIndex) {
+                        progressIndicator.textContent = `Step ${pageIndex} of 9: ${progressIndicator.textContent.split(': ')[1]}`; // Update step number
+                     }
                  }
-                 // Hide results area when navigating away from the last page
-                 if (pageId !== 'evaluationPage_Feasibility') {
-                    resultArea.classList.add('hidden');
-                    exportPdfButton.classList.add('hidden');
+                 // Hide results area elements when navigating away from results page
+                 if (pageId !== 'resultsPage') {
+                    // resultArea.classList.add('hidden'); // Result area is now part of results page
+                    // exportPdfButton.classList.add('hidden'); // Export button is now part of results page
                  }
 
             } else {
@@ -543,8 +562,8 @@
                     updateStakeholderPrompts(); // Update prompts when moving to first eval page
                 }
 
-                // Validation before proceeding from a dimension page
-                if (currentPage.hasAttribute('data-page-index') && button.textContent.includes('Next')) { // Only validate on 'Next'
+                // Validation before proceeding from a dimension page (only on 'Next' clicks)
+                if (currentPage.hasAttribute('data-page-index') && !button.textContent.includes('Back')) {
                     const dimensionFieldset = currentPage.querySelector('fieldset[data-dimension]');
                     if (dimensionFieldset) {
                         const dimension = dimensionFieldset.dataset.dimension;
@@ -554,7 +573,8 @@
                         const allAnswered = names.every(name => dimensionFieldset.querySelector(`input[name="${name}"]:checked`));
 
                         if (!allAnswered) {
-                           alert(`Please answer all questions for Dimension ${currentPage.dataset.pageIndex - 1} before proceeding.`);
+                           const dimensionNumber = currentPage.dataset.pageIndex - 1; // Get dimension number (2-7 -> 1-6)
+                           alert(`Please answer all questions for Dimension ${dimensionNumber} before proceeding.`);
                            const firstUnansweredRadio = dimensionFieldset.querySelector('input[type="radio"]:not(:checked)'); // Find first unanswered
                            if(firstUnansweredRadio) {
                                firstUnansweredRadio.focus();
@@ -577,7 +597,6 @@
         }
         function getRadioLabel(name) {
              const radio = document.querySelector(`.page input[name="${name}"]:checked`);
-             // Return text label without the score part if needed, or adjust as required
              return radio ? radio.closest('label').textContent.trim() : 'N/A';
         }
         function getDimensionQuestionData(dimensionName) {
@@ -590,7 +609,7 @@
             const uniqueNames = [...new Set(Array.from(inputs).map(input => input.name))];
             uniqueNames.forEach(name => {
                 const value = getRadioValue(name);
-                const label = getRadioLabel(name); // Gets label text e.g., "Highly Variable"
+                const label = getRadioLabel(name);
                 const questionKey = name.split('_').slice(1).join('_');
                  const descElement = dimensionPage.querySelector(`input[name="${name}"]`)?.closest('.question-item')?.querySelector('.question-description');
                  const description = descElement ? descElement.textContent.trim() : '';
@@ -704,7 +723,7 @@
         });
 
 
-        // --- Evaluation Form Submission Handler ---
+        // --- Evaluation Form Submission Handler (on last dimension page) ---
         evaluationForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -718,8 +737,8 @@
             const allScoresCalculated = Object.values(dimensionScores).every(score => score !== null);
             if (!allScoresCalculated) {
                  alert('It seems some questions might be unanswered. Please go back and ensure all questions in each dimension are answered.');
-                 exportPdfButton.classList.add('hidden'); currentResultData = null; resultArea.classList.add('hidden');
-                 return;
+                 // Don't hide buttons or result area here, user is still on feasibility page
+                 return; // Stop processing
             }
 
             // --- Heuristic Logic ---
@@ -786,20 +805,20 @@
                  disclaimer: `Disclaimer: This is a preliminary suggestion based on the calculated scores. A thorough discussion involving relevant stakeholders, considering the detailed notes and context, is crucial for the final decision.`
              };
 
-            // --- Display Results ---
+            // --- Display Results on Results Page ---
             resultCategory.textContent = `Suggested Category: ${suggestedCategory}`;
             resultRationale.textContent = `Rationale: ${rationale}`;
             resultDisclaimer.textContent = currentResultData.disclaimer;
-            resultBox.className = '';
-            resultBox.classList.add('resultBox', 'max-w-3xl', 'mx-auto', categoryClass);
-            resultArea.classList.remove('hidden');
-            exportPdfButton.classList.remove('hidden');
-            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Scroll result into view
+            resultBox.className = ''; // Reset classes
+            resultBox.classList.add('resultBox', 'max-w-3xl', 'mx-auto', categoryClass); // Add base and category class
+
+            // Navigate to the results page
+            showPage('resultsPage');
         });
 
         // --- PDF Export Handler ---
         exportPdfButton.addEventListener('click', function() {
-            if (!currentResultData) { alert("Please determine the category first before exporting."); return; }
+            if (!currentResultData) { alert("Cannot export - results not calculated yet."); return; }
 
             // Construct HTML for PDF
             let pdfHTML = `<h1>AI Task Taxonomy Evaluation Report</h1><h2>Task Identification</h2> <p><span class="label">Task Name:</span> ${currentResultData.taskName || 'N/A'}</p> <p><span class="label">Evaluator(s):</span> ${currentResultData.evaluator || 'N/A'}</p> <p><span class="label">Date:</span> ${currentResultData.evalDate || 'N/A'}</p> <p class="stakeholder-list-pdf"><span class="label">Key Stakeholders:</span> ${currentResultData.stakeholders.length > 0 ? currentResultData.stakeholders.join(', ') : 'None selected'}</p> <h2>Dimension Evaluation</h2>`;
@@ -812,7 +831,7 @@
                      const qText = qKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                      pdfHTML += `<div class="question-block">
                                     <p class="question-text">${qText}:</p>
-                                    <p class="question-desc-pdf">${qData.description || ''}</p> {/* Added description */}
+                                    <p class="question-desc-pdf">${qData.description || ''}</p>
                                     <p class="question-answer">${qData.label} (Score: ${qData.value ?? 'N/A'})</p>
                                  </div>`;
                 }
@@ -821,15 +840,39 @@
                  dimensionIndex++;
             }
             pdfHTML += `<div class="result-section"><h2>Evaluation Result</h2><p class="result-category"><span class="label">Suggested Category:</span> ${currentResultData.suggestedCategory}</p><p class="result-rationale"><span class="label">Rationale:</span> ${currentResultData.rationale}</p><p class="result-disclaimer">${currentResultData.disclaimer}</p></div>`;
-            pdfContentDiv.innerHTML = pdfHTML;
 
-            // Configure and generate PDF
+            // --- PDF Generation with Fix ---
+            const pdfElement = pdfContentDiv;
+            pdfElement.innerHTML = pdfHTML; // Populate the hidden div
+
+            // Temporarily make the div renderable but off-screen
+            pdfElement.classList.remove('hidden');
+            pdfElement.classList.add('pdf-render-area');
+
             const filename = `AI_Taxonomy_Report_${(currentResultData.taskName || 'task').replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`;
-            const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true, logging: false }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
+            const opt = {
+                margin: [0.5, 0.5, 0.5, 0.5], filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
             console.log("Generating PDF...");
-            html2pdf().from(pdfContentDiv).set(opt).save()
-              .then(() => { console.log("PDF Generated Successfully."); })
-              .catch(err => { console.error("Error generating PDF:", err); alert("An error occurred generating PDF."); });
+            // Use a Promise to ensure rendering happens before hiding again
+            html2pdf().from(pdfElement).set(opt).save().then(() => {
+                console.log("PDF Generated Successfully.");
+                // Hide the element again after PDF generation
+                pdfElement.classList.add('hidden');
+                pdfElement.classList.remove('pdf-render-area');
+                pdfElement.innerHTML = ''; // Clear content
+            }).catch(err => {
+                console.error("Error generating PDF:", err);
+                alert("An error occurred generating PDF.");
+                // Ensure element is hidden even if error occurs
+                pdfElement.classList.add('hidden');
+                pdfElement.classList.remove('pdf-render-area');
+                pdfElement.innerHTML = ''; // Clear content
+            });
         });
 
         // --- Initial Setup ---
