@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Task Taxonomy Tool for Higher Education (Detailed Scoring)</title>
+    <title>AI Task Taxonomy Tool for Higher Education</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,17 +37,20 @@
         .diagram-arrow { font-size: 1.5rem; color: #9ca3af; display: flex; align-items: center; justify-content: center; margin: 0 0.5rem; }
 
         /* Fieldset styling */
-        .fieldset-legend { font-size: 1.125rem; font-weight: 600; color: #1f2937; padding: 0 0.5rem; margin-bottom: 0.25rem; } /* Reduced bottom margin */
-        .dimension-description { font-size: 0.875rem; color: #4b5563; margin-bottom: 1rem; padding: 0 0.5rem; } /* Style for description */
+        .fieldset-legend { font-size: 1.125rem; font-weight: 600; color: #1f2937; padding: 0 0.5rem; margin-bottom: 0.25rem; }
+        .dimension-description { font-size: 0.875rem; color: #4b5563; margin-bottom: 1rem; padding: 0 0.5rem; }
         fieldset { background-color: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
 
         /* Focus states */
         input:focus, select:focus, textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); outline: none; }
 
         /* Button styling */
-         .action-button { padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 600; border-radius: 0.5rem; shadow-md; transition: all 0.2s ease-in-out; focus:outline-none; focus:ring-2; focus:ring-offset-2; }
-         .submit-button { background-color: #2563eb; color: white; hover:bg-blue-700; focus:ring-blue-500; }
-         .export-button { background-color: #16a34a; color: white; hover:bg-green-700; focus:ring-green-500; margin-left: 1rem; }
+         .action-button { padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 600; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); transition: all 0.2s ease-in-out; cursor: pointer; display: inline-block; text-align: center; }
+         .submit-button { background-color: #2563eb; color: white; hover:bg-blue-700; focus:ring-2 focus:ring-offset-2 focus:ring-blue-500; }
+         .export-button { background-color: #16a34a; color: white; hover:bg-green-700; focus:ring-2 focus:ring-offset-2 focus:ring-green-500; margin-left: 1rem; }
+         .nav-button { background-color: #4f46e5; color: white; hover:bg-indigo-700; focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500; }
+         .back-button { background-color: #6b7280; color: white; hover:bg-gray-700; focus:ring-2 focus:ring-offset-2 focus:ring-gray-500; margin-top: 2rem; }
+
 
         /* Question Styling */
         .question-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb; }
@@ -75,7 +78,7 @@
          #pdfContent h1 { font-size: 18pt; margin-bottom: 15px; color: #111; }
          #pdfContent h2 { font-size: 14pt; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #222; }
          #pdfContent h3 { font-size: 12pt; margin-top: 15px; margin-bottom: 5px; color: #444; }
-         #pdfContent .dimension-desc-pdf { font-size: 9pt; font-style: italic; color: #555; margin-bottom: 10px; } /* Style for description in PDF */
+         #pdfContent .dimension-desc-pdf { font-size: 9pt; font-style: italic; color: #555; margin-bottom: 10px; }
          #pdfContent p { font-size: 10pt; line-height: 1.4; margin-bottom: 8px; }
          #pdfContent .label { font-weight: bold; }
          #pdfContent .notes { font-style: italic; color: #555; margin-left: 15px; font-size: 9pt; }
@@ -92,350 +95,191 @@
 </head>
 <body class="bg-gray-100 p-4 md:p-8">
     <div class="max-w-6xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-lg">
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">AI Task Taxonomy Evaluation Tool (Detailed Scoring)</h1>
-        <p class="text-gray-600 mb-8 text-center">Evaluate Higher Education tasks for AI integration potential using the framework below.</p>
 
-        <div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <h2 class="text-lg font-semibold text-gray-700 mb-3 text-center">Framework Overview</h2>
-            <div class="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
-                 <div class="diagram-box bg-blue-100 border-blue-300 text-blue-800">Input:<br>Specific HEI Task</div>
-                 <div class="diagram-arrow hidden md:block">→</div>
-                 <div class="diagram-box bg-yellow-100 border-yellow-300 text-yellow-800">Evaluation:<br>6 Dimensions (Scored)</div>
-                 <div class="diagram-arrow hidden md:block">→</div>
-                 <div class="diagram-box bg-green-100 border-green-300 text-green-800">Output:<br>4 Categories</div>
+        <div id="landingPage">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">AI Task Taxonomy Evaluation Framework</h1>
+            <p class="text-gray-600 mb-8 text-center text-lg leading-relaxed">
+                Welcome! This framework helps Higher Education staff evaluate tasks for potential AI integration.
+                It considers the task's nature, risks, ethics, stakeholder value, human element, and feasibility
+                to suggest an appropriate level of AI involvement.
+            </p>
+
+            <div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">Framework Overview</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-4 mb-4">
+                     <div class="diagram-box bg-blue-100 border-blue-300 text-blue-800">Input:<br>Specific HEI Task</div>
+                     <div class="diagram-arrow hidden md:block">→</div>
+                     <div class="diagram-box bg-yellow-100 border-yellow-300 text-yellow-800">Evaluation:<br>6 Dimensions (Scored)</div>
+                     <div class="diagram-arrow hidden md:block">→</div>
+                     <div class="diagram-box bg-green-100 border-green-300 text-green-800">Output:<br>4 Categories</div>
+                </div>
+                 <p class="text-center text-gray-600 mt-4">
+                    The evaluation across the six dimensions leads to a suggested category: Human-Led, AI-Assisted, High Automation Potential, or Full Automation.
+                </p>
             </div>
-        </div>
 
-        <form id="taxonomyForm" class="space-y-8">
-
-            <fieldset class="border border-gray-300 p-5 rounded-md">
-                 <legend class="fieldset-legend">Task Identification</legend>
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
-                     <div>
-                         <label for="taskName" class="block text-sm font-medium text-gray-700 mb-1">Task Name:</label>
-                         <input type="text" id="taskName" name="taskName" required placeholder="e.g., Grading MCQs for Intro Course" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm">
-                    </div>
-                     <div>
-                         <label for="evaluator" class="block text-sm font-medium text-gray-700 mb-1">Evaluator(s):</label>
-                         <input type="text" id="evaluator" name="evaluator" placeholder="e.g., John Doe, Curriculum Committee" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm">
-                    </div>
-                     <div>
-                         <label for="evalDate" class="block text-sm font-medium text-gray-700 mb-1">Date:</label>
-                         <input type="date" id="evalDate" name="evalDate" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm">
-                    </div>
-                     <div class="md:col-span-2">
-                         <label class="block text-sm font-medium text-gray-700 mb-2">Key Stakeholder Groups Involved:</label>
-                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 stakeholder-group">
-                             <label><input type="checkbox" name="stakeholder" value="Students" class="mr-2"> Students</label>
-                             <label><input type="checkbox" name="stakeholder" value="Faculty" class="mr-2"> Faculty / Instructors</label>
-                             <label><input type="checkbox" name="stakeholder" value="Admin Staff" class="mr-2"> Administrative Staff</label>
-                             <label><input type="checkbox" name="stakeholder" value="IT Staff" class="mr-2"> IT Staff</label>
-                             <label><input type="checkbox" name="stakeholder" value="Researchers" class="mr-2"> Researchers</label>
-                             <label>
-                                 <input type="checkbox" id="stakeholderOtherCheck" name="stakeholder" value="Other" class="mr-2"> Other
-                             </label>
-                         </div>
-                         <input type="text" id="otherStakeholderInput" name="otherStakeholderText" placeholder="Specify other stakeholders" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm mt-2 hidden">
-                     </div>
+             <div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
+                 <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">The Six Dimensions</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-gray-700">
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>1. Task Nature & Complexity:</strong> Characteristics like repetitiveness, cognitive load, data needs, and creativity requirements.</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>2. Risk, Safety & Security:</strong> Potential harms like data breaches, bias, safety issues, and integrity concerns.</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>3. Ethical Considerations:</strong> Alignment with fairness, transparency, accountability, and human dignity.</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>4. Stakeholder Value & Impact:</strong> Potential benefits or drawbacks for students, staff, and the institution.</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>5. Human Element Requirement:</strong> Need for empathy, mentorship, nuanced judgment, or complex communication.</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>6. Feasibility & Implementation:</strong> Practical aspects like tech maturity, data, cost, skills, and policy.</div>
                  </div>
-             </fieldset>
+             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="nature">
-                    <legend class="fieldset-legend">1. Task Nature & Complexity</legend>
-                    <p class="dimension-description">Focus: The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation.</p>
-                    <div class="question-item">
-                        <span class="question-label">Repetitiveness (1=Highly Variable, 5=Highly Repetitive):</span>
-                        <div class="scale-container">
-                            <label><input type="radio" name="nature_repetitiveness" value="1" required> 1</label>
-                            <label><input type="radio" name="nature_repetitiveness" value="2"> 2</label>
-                            <label><input type="radio" name="nature_repetitiveness" value="3"> 3</label>
-                            <label><input type="radio" name="nature_repetitiveness" value="4"> 4</label>
-                            <label><input type="radio" name="nature_repetitiveness" value="5"> 5</label>
-                        </div>
-                    </div>
-                    <div class="question-item">
-                        <span class="question-label">Cognitive Load (1=Complex Judgment/Creative, 3=Analytical, 5=Simple Rule-Following):</span>
-                         <div class="scale-container">
-                            <label><input type="radio" name="nature_cognitive" value="1" required> Judgment/Creative</label>
-                            <label><input type="radio" name="nature_cognitive" value="3"> Analytical</label>
-                            <label><input type="radio" name="nature_cognitive" value="5"> Rule-Following</label>
-                        </div>
-                    </div>
-                     <div class="question-item">
-                        <span class="question-label">Data Dependence (1=Low/Qualitative, 3=Moderate/Mixed, 5=High/Structured):</span>
-                         <div class="scale-container">
-                            <label><input type="radio" name="nature_data" value="1" required> Low/Qualitative</label>
-                            <label><input type="radio" name="nature_data" value="3"> Moderate/Mixed</label>
-                            <label><input type="radio" name="nature_data" value="5"> High/Structured</label>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <label for="notesNature" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label>
-                        <textarea id="notesNature" name="notesNature" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                    <div class="dimension-score-display mt-auto">
-                        Dimension Score (Avg): <span class="score-value" id="score_nature">N/A</span>
-                    </div>
-                </fieldset>
-
-                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="risk">
-                    <legend class="fieldset-legend">2. Risk, Safety & Security</legend>
-                    <p class="dimension-description">Focus: Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk.</p>
-                     <div class="question-item">
-                         <span class="question-label">Data Privacy/Security Risk:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="risk_privacy" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="risk_privacy" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="risk_privacy" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Algorithmic Bias Risk:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="risk_bias" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="risk_bias" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="risk_bias" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Safety Risk (Physical/Psychological):</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="risk_safety" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="risk_safety" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="risk_safety" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Academic Integrity Risk:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="risk_integrity" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="risk_integrity" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="risk_integrity" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Operational/Reputational Risk:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="risk_operational" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="risk_operational" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="risk_operational" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                    <div class="mt-4">
-                        <label for="notesRisk" class="block text-sm font-medium text-gray-700 mb-1">Key Risks & Mitigation Notes:</label>
-                        <textarea id="notesRisk" name="notesRisk" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                     <div class="dimension-score-display mt-auto">
-                        Dimension Score (Max): <span class="score-value" id="score_risk">N/A</span>
-                    </div>
-                </fieldset>
-
-                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="ethics">
-                    <legend class="fieldset-legend">3. Ethical Considerations</legend>
-                    <p class="dimension-description">Focus: Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern.</p>
-                     <div class="question-item">
-                         <span class="question-label">Fairness & Equity Concern:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="ethics_fairness" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="ethics_fairness" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="ethics_fairness" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Transparency & Explainability Concern:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="ethics_transparency" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="ethics_transparency" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="ethics_transparency" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Accountability Concern:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="ethics_accountability" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="ethics_accountability" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="ethics_accountability" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Human Dignity/Autonomy Concern:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="ethics_dignity" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="ethics_dignity" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="ethics_dignity" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                    <div class="mt-4">
-                        <label for="notesEthics" class="block text-sm font-medium text-gray-700 mb-1">Key Ethical Issues & Safeguard Notes:</label>
-                        <textarea id="notesEthics" name="notesEthics" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                     <div class="dimension-score-display mt-auto">
-                        Dimension Score (Max): <span class="score-value" id="score_ethics">N/A</span>
-                    </div>
-                </fieldset>
-
-                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="value">
-                    <legend class="fieldset-legend">4. Stakeholder Value & Impact</legend>
-                    <p class="dimension-description">Focus: The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value.</p>
-                     <div class="question-item">
-                         <span class="question-label">Positive Impact on Student Learning/Experience:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="value_student" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="value_student" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="value_student" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Positive Impact on Staff Workload/Capacity:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="value_staff" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="value_staff" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="value_staff" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Positive Impact on Institutional Efficiency/Goals:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="value_institution" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="value_institution" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="value_institution" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                    <div id="stakeholderPrompts" class="hidden"></div>
-                    <div class="mt-4">
-                        <label id="notesValueLabel" for="notesValue" class="block text-sm font-medium text-gray-700 mb-1">Key Impacts (Positive/Negative) & Stakeholder Notes:</label>
-                        <textarea id="notesValue" name="notesValue" rows="3" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                     <div class="dimension-score-display mt-auto">
-                        Dimension Score (Avg): <span class="score-value" id="score_value">N/A</span>
-                    </div>
-                </fieldset>
-
-                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="human">
-                    <legend class="fieldset-legend">5. Human Element Requirement</legend>
-                    <p class="dimension-description">Focus: The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement.</p>
-                     <div class="question-item">
-                         <span class="question-label">Need for Empathy/Pastoral Care:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="human_empathy" value="1" required> Minimal (1)</label>
-                             <label><input type="radio" name="human_empathy" value="2"> Beneficial (2)</label>
-                             <label><input type="radio" name="human_empathy" value="3"> Important (3)</label>
-                             <label><input type="radio" name="human_empathy" value="4"> Essential (4)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Need for Mentorship/Personalized Guidance:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="human_mentorship" value="1" required> Minimal (1)</label>
-                             <label><input type="radio" name="human_mentorship" value="2"> Beneficial (2)</label>
-                             <label><input type="radio" name="human_mentorship" value="3"> Important (3)</label>
-                             <label><input type="radio" name="human_mentorship" value="4"> Essential (4)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Need for High-Stakes/Sensitive Communication:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="human_communication" value="1" required> Minimal (1)</label>
-                             <label><input type="radio" name="human_communication" value="2"> Beneficial (2)</label>
-                             <label><input type="radio" name="human_communication" value="3"> Important (3)</label>
-                             <label><input type="radio" name="human_communication" value="4"> Essential (4)</label>
-                         </div>
-                     </div>
-                      <div class="question-item">
-                         <span class="question-label">Need for Relationship/Community Building:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="human_community" value="1" required> Minimal (1)</label>
-                             <label><input type="radio" name="human_community" value="2"> Beneficial (2)</label>
-                             <label><input type="radio" name="human_community" value="3"> Important (3)</label>
-                             <label><input type="radio" name="human_community" value="4"> Essential (4)</label>
-                         </div>
-                     </div>
-                    <div class="mt-4">
-                        <label for="notesHuman" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label>
-                        <textarea id="notesHuman" name="notesHuman" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                     <div class="dimension-score-display mt-auto">
-                        Dimension Score (Max): <span class="score-value" id="score_human">N/A</span>
-                    </div>
-                </fieldset>
-
-                <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="feasibility">
-                    <legend class="fieldset-legend">6. Feasibility & Implementation</legend>
-                    <p class="dimension-description">Focus: The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility.</p>
-                     <div class="question-item">
-                         <span class="question-label">Technology Maturity/Reliability:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="feasibility_tech" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="feasibility_tech" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="feasibility_tech" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Data Availability/Quality/Bias:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="feasibility_data" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="feasibility_data" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="feasibility_data" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Cost-Effectiveness (ROI):</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="feasibility_cost" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="feasibility_cost" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="feasibility_cost" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Staff Skills/Training Availability:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="feasibility_skills" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="feasibility_skills" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="feasibility_skills" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                     <div class="question-item">
-                         <span class="question-label">Policy/Regulatory Alignment:</span>
-                         <div class="scale-container">
-                             <label><input type="radio" name="feasibility_policy" value="1" required> Low (1)</label>
-                             <label><input type="radio" name="feasibility_policy" value="3"> Medium (3)</label>
-                             <label><input type="radio" name="feasibility_policy" value="5"> High (5)</label>
-                         </div>
-                     </div>
-                    <div class="mt-4">
-                        <label for="notesFeasibility" class="block text-sm font-medium text-gray-700 mb-1">Key Barriers & Resource Notes:</label>
-                        <textarea id="notesFeasibility" name="notesFeasibility" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea>
-                    </div>
-                    <div class="dimension-score-display mt-auto">
-                        Dimension Score (Avg - Min Block): <span class="score-value" id="score_feasibility">N/A</span>
-                    </div>
-                </fieldset>
-            </div> <div class="text-center pt-6">
-                <button type="submit" class="action-button submit-button">
-                    Determine Suggested Category
-                </button>
-                <button type="button" id="exportPdfButton" class="action-button export-button hidden">
-                    Export Results to PDF
+            <div class="text-center mt-8">
+                <button id="goToToolButton" class="action-button nav-button text-lg px-10 py-3">
+                    Start Evaluating a Task →
                 </button>
             </div>
-        </form>
-
-        <div id="resultArea" class="mt-10 hidden">
-             <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Evaluation Result</h2>
-             <div id="resultBox" class="result-default max-w-3xl mx-auto">
-                 <p id="resultCategory" class="font-bold text-lg mb-2"></p>
-                 <p id="resultRationale" class="text-gray-700 text-base"></p>
-                 <p id="resultDisclaimer" class="text-sm text-gray-600 mt-4 italic"></p>
-             </div>
         </div>
 
-        <div id="pdfContent" class="hidden"></div>
+        <div id="toolPage" class="hidden">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">AI Task Taxonomy Evaluation Tool</h1>
+            <p class="text-gray-600 mb-8 text-center">Evaluate your specific task using the detailed scoring below.</p>
 
-    </div>
+            <form id="taxonomyForm" class="space-y-8">
 
-    <script>
+                <fieldset class="border border-gray-300 p-5 rounded-md">
+                     <legend class="fieldset-legend">Task Identification</legend>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                         <div>
+                             <label for="taskName" class="block text-sm font-medium text-gray-700 mb-1">Task Name:</label>
+                             <input type="text" id="taskName" name="taskName" required placeholder="e.g., Grading MCQs for Intro Course" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm">
+                        </div>
+                         <div>
+                             <label for="evaluator" class="block text-sm font-medium text-gray-700 mb-1">Evaluator(s):</label>
+                             <input type="text" id="evaluator" name="evaluator" placeholder="e.g., John Doe, Curriculum Committee" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm">
+                        </div>
+                         <div>
+                             <label for="evalDate" class="block text-sm font-medium text-gray-700 mb-1">Date:</label>
+                             <input type="date" id="evalDate" name="evalDate" required class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm">
+                        </div>
+                         <div class="md:col-span-2">
+                             <label class="block text-sm font-medium text-gray-700 mb-2">Key Stakeholder Groups Involved:</label>
+                             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 stakeholder-group">
+                                 <label><input type="checkbox" name="stakeholder" value="Students" class="mr-2"> Students</label>
+                                 <label><input type="checkbox" name="stakeholder" value="Faculty" class="mr-2"> Faculty / Instructors</label>
+                                 <label><input type="checkbox" name="stakeholder" value="Admin Staff" class="mr-2"> Administrative Staff</label>
+                                 <label><input type="checkbox" name="stakeholder" value="IT Staff" class="mr-2"> IT Staff</label>
+                                 <label><input type="checkbox" name="stakeholder" value="Researchers" class="mr-2"> Researchers</label>
+                                 <label>
+                                     <input type="checkbox" id="stakeholderOtherCheck" name="stakeholder" value="Other" class="mr-2"> Other
+                                 </label>
+                             </div>
+                             <input type="text" id="otherStakeholderInput" name="otherStakeholderText" placeholder="Specify other stakeholders" class="w-full p-2.5 border border-gray-300 rounded-md shadow-sm mt-2 hidden">
+                         </div>
+                     </div>
+                 </fieldset>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="nature">
+                        <legend class="fieldset-legend">1. Task Nature & Complexity</legend>
+                        <p class="dimension-description">Focus: The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation.</p>
+                        <div class="question-item">
+                            <span class="question-label">Repetitiveness (1=Highly Variable, 5=Highly Repetitive):</span>
+                            <div class="scale-container"> <label><input type="radio" name="nature_repetitiveness" value="1" required> 1</label> <label><input type="radio" name="nature_repetitiveness" value="2"> 2</label> <label><input type="radio" name="nature_repetitiveness" value="3"> 3</label> <label><input type="radio" name="nature_repetitiveness" value="4"> 4</label> <label><input type="radio" name="nature_repetitiveness" value="5"> 5</label> </div>
+                        </div>
+                        <div class="question-item">
+                            <span class="question-label">Cognitive Load (1=Complex Judgment/Creative, 3=Analytical, 5=Simple Rule-Following):</span>
+                            <div class="scale-container"> <label><input type="radio" name="nature_cognitive" value="1" required> Judgment/Creative</label> <label><input type="radio" name="nature_cognitive" value="3"> Analytical</label> <label><input type="radio" name="nature_cognitive" value="5"> Rule-Following</label> </div>
+                        </div>
+                        <div class="question-item">
+                            <span class="question-label">Data Dependence (1=Low/Qualitative, 3=Moderate/Mixed, 5=High/Structured):</span>
+                            <div class="scale-container"> <label><input type="radio" name="nature_data" value="1" required> Low/Qualitative</label> <label><input type="radio" name="nature_data" value="3"> Moderate/Mixed</label> <label><input type="radio" name="nature_data" value="5"> High/Structured</label> </div>
+                        </div>
+                        <div class="mt-4"> <label for="notesNature" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label> <textarea id="notesNature" name="notesNature" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
+                        <div class="dimension-score-display mt-auto"> Dimension Score (Avg): <span class="score-value" id="score_nature">N/A</span> </div>
+                    </fieldset>
+
+                    <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="risk">
+                        <legend class="fieldset-legend">2. Risk, Safety & Security</legend>
+                        <p class="dimension-description">Focus: Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk.</p>
+                        <div class="question-item"> <span class="question-label">Data Privacy/Security Risk:</span> <div class="scale-container"> <label><input type="radio" name="risk_privacy" value="1" required> Low (1)</label> <label><input type="radio" name="risk_privacy" value="3"> Medium (3)</label> <label><input type="radio" name="risk_privacy" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Algorithmic Bias Risk:</span> <div class="scale-container"> <label><input type="radio" name="risk_bias" value="1" required> Low (1)</label> <label><input type="radio" name="risk_bias" value="3"> Medium (3)</label> <label><input type="radio" name="risk_bias" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Safety Risk (Physical/Psychological):</span> <div class="scale-container"> <label><input type="radio" name="risk_safety" value="1" required> Low (1)</label> <label><input type="radio" name="risk_safety" value="3"> Medium (3)</label> <label><input type="radio" name="risk_safety" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Academic Integrity Risk:</span> <div class="scale-container"> <label><input type="radio" name="risk_integrity" value="1" required> Low (1)</label> <label><input type="radio" name="risk_integrity" value="3"> Medium (3)</label> <label><input type="radio" name="risk_integrity" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Operational/Reputational Risk:</span> <div class="scale-container"> <label><input type="radio" name="risk_operational" value="1" required> Low (1)</label> <label><input type="radio" name="risk_operational" value="3"> Medium (3)</label> <label><input type="radio" name="risk_operational" value="5"> High (5)</label> </div> </div>
+                        <div class="mt-4"> <label for="notesRisk" class="block text-sm font-medium text-gray-700 mb-1">Key Risks & Mitigation Notes:</label> <textarea id="notesRisk" name="notesRisk" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
+                        <div class="dimension-score-display mt-auto"> Dimension Score (Max): <span class="score-value" id="score_risk">N/A</span> </div>
+                    </fieldset>
+
+                    <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="ethics">
+                        <legend class="fieldset-legend">3. Ethical Considerations</legend>
+                        <p class="dimension-description">Focus: Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern.</p>
+                        <div class="question-item"> <span class="question-label">Fairness & Equity Concern:</span> <div class="scale-container"> <label><input type="radio" name="ethics_fairness" value="1" required> Low (1)</label> <label><input type="radio" name="ethics_fairness" value="3"> Medium (3)</label> <label><input type="radio" name="ethics_fairness" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Transparency & Explainability Concern:</span> <div class="scale-container"> <label><input type="radio" name="ethics_transparency" value="1" required> Low (1)</label> <label><input type="radio" name="ethics_transparency" value="3"> Medium (3)</label> <label><input type="radio" name="ethics_transparency" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Accountability Concern:</span> <div class="scale-container"> <label><input type="radio" name="ethics_accountability" value="1" required> Low (1)</label> <label><input type="radio" name="ethics_accountability" value="3"> Medium (3)</label> <label><input type="radio" name="ethics_accountability" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Human Dignity/Autonomy Concern:</span> <div class="scale-container"> <label><input type="radio" name="ethics_dignity" value="1" required> Low (1)</label> <label><input type="radio" name="ethics_dignity" value="3"> Medium (3)</label> <label><input type="radio" name="ethics_dignity" value="5"> High (5)</label> </div> </div>
+                        <div class="mt-4"> <label for="notesEthics" class="block text-sm font-medium text-gray-700 mb-1">Key Ethical Issues & Safeguard Notes:</label> <textarea id="notesEthics" name="notesEthics" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
+                        <div class="dimension-score-display mt-auto"> Dimension Score (Max): <span class="score-value" id="score_ethics">N/A</span> </div>
+                    </fieldset>
+
+                    <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="value">
+                        <legend class="fieldset-legend">4. Stakeholder Value & Impact</legend>
+                        <p class="dimension-description">Focus: The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value.</p>
+                        <div class="question-item"> <span class="question-label">Positive Impact on Student Learning/Experience:</span> <div class="scale-container"> <label><input type="radio" name="value_student" value="1" required> Low (1)</label> <label><input type="radio" name="value_student" value="3"> Medium (3)</label> <label><input type="radio" name="value_student" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Positive Impact on Staff Workload/Capacity:</span> <div class="scale-container"> <label><input type="radio" name="value_staff" value="1" required> Low (1)</label> <label><input type="radio" name="value_staff" value="3"> Medium (3)</label> <label><input type="radio" name="value_staff" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Positive Impact on Institutional Efficiency/Goals:</span> <div class="scale-container"> <label><input type="radio" name="value_institution" value="1" required> Low (1)</label> <label><input type="radio" name="value_institution" value="3"> Medium (3)</label> <label><input type="radio" name="value_institution" value="5"> High (5)</label> </div> </div>
+                        <div id="stakeholderPrompts" class="hidden"></div>
+                        <div class="mt-4"> <label id="notesValueLabel" for="notesValue" class="block text-sm font-medium text-gray-700 mb-1">Key Impacts (Positive/Negative) & Stakeholder Notes:</label> <textarea id="notesValue" name="notesValue" rows="3" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
+                        <div class="dimension-score-display mt-auto"> Dimension Score (Avg): <span class="score-value" id="score_value">N/A</span> </div>
+                    </fieldset>
+
+                    <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="human">
+                        <legend class="fieldset-legend">5. Human Element Requirement</legend>
+                        <p class="dimension-description">Focus: The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement.</p>
+                        <div class="question-item"> <span class="question-label">Need for Empathy/Pastoral Care:</span> <div class="scale-container"> <label><input type="radio" name="human_empathy" value="1" required> Minimal (1)</label> <label><input type="radio" name="human_empathy" value="2"> Beneficial (2)</label> <label><input type="radio" name="human_empathy" value="3"> Important (3)</label> <label><input type="radio" name="human_empathy" value="4"> Essential (4)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Need for Mentorship/Personalized Guidance:</span> <div class="scale-container"> <label><input type="radio" name="human_mentorship" value="1" required> Minimal (1)</label> <label><input type="radio" name="human_mentorship" value="2"> Beneficial (2)</label> <label><input type="radio" name="human_mentorship" value="3"> Important (3)</label> <label><input type="radio" name="human_mentorship" value="4"> Essential (4)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Need for High-Stakes/Sensitive Communication:</span> <div class="scale-container"> <label><input type="radio" name="human_communication" value="1" required> Minimal (1)</label> <label><input type="radio" name="human_communication" value="2"> Beneficial (2)</label> <label><input type="radio" name="human_communication" value="3"> Important (3)</label> <label><input type="radio" name="human_communication" value="4"> Essential (4)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Need for Relationship/Community Building:</span> <div class="scale-container"> <label><input type="radio" name="human_community" value="1" required> Minimal (1)</label> <label><input type="radio" name="human_community" value="2"> Beneficial (2)</label> <label><input type="radio" name="human_community" value="3"> Important (3)</label> <label><input type="radio" name="human_community" value="4"> Essential (4)</label> </div> </div>
+                        <div class="mt-4"> <label for="notesHuman" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label> <textarea id="notesHuman" name="notesHuman" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
+                        <div class="dimension-score-display mt-auto"> Dimension Score (Max): <span class="score-value" id="score_human">N/A</span> </div>
+                    </fieldset>
+
+                    <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="feasibility">
+                        <legend class="fieldset-legend">6. Feasibility & Implementation</legend>
+                        <p class="dimension-description">Focus: The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility.</p>
+                        <div class="question-item"> <span class="question-label">Technology Maturity/Reliability:</span> <div class="scale-container"> <label><input type="radio" name="feasibility_tech" value="1" required> Low (1)</label> <label><input type="radio" name="feasibility_tech" value="3"> Medium (3)</label> <label><input type="radio" name="feasibility_tech" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Data Availability/Quality/Bias:</span> <div class="scale-container"> <label><input type="radio" name="feasibility_data" value="1" required> Low (1)</label> <label><input type="radio" name="feasibility_data" value="3"> Medium (3)</label> <label><input type="radio" name="feasibility_data" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Cost-Effectiveness (ROI):</span> <div class="scale-container"> <label><input type="radio" name="feasibility_cost" value="1" required> Low (1)</label> <label><input type="radio" name="feasibility_cost" value="3"> Medium (3)</label> <label><input type="radio" name="feasibility_cost" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Staff Skills/Training Availability:</span> <div class="scale-container"> <label><input type="radio" name="feasibility_skills" value="1" required> Low (1)</label> <label><input type="radio" name="feasibility_skills" value="3"> Medium (3)</label> <label><input type="radio" name="feasibility_skills" value="5"> High (5)</label> </div> </div>
+                        <div class="question-item"> <span class="question-label">Policy/Regulatory Alignment:</span> <div class="scale-container"> <label><input type="radio" name="feasibility_policy" value="1" required> Low (1)</label> <label><input type="radio" name="feasibility_policy" value="3"> Medium (3)</label> <label><input type="radio" name="feasibility_policy" value="5"> High (5)</label> </div> </div>
+                        <div class="mt-4"> <label for="notesFeasibility" class="block text-sm font-medium text-gray-700 mb-1">Key Barriers & Resource Notes:</label> <textarea id="notesFeasibility" name="notesFeasibility" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
+                        <div class="dimension-score-display mt-auto"> Dimension Score (Avg - Min Block): <span class="score-value" id="score_feasibility">N/A</span> </div>
+                    </fieldset>
+                </div> <div class="text-center pt-6">
+                    <button type="submit" class="action-button submit-button">
+                        Determine Suggested Category
+                    </button>
+                    <button type="button" id="exportPdfButton" class="action-button export-button hidden">
+                        Export Results to PDF
+                    </button>
+                </div>
+            </form>
+
+            <div id="resultArea" class="mt-10 hidden">
+                 <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Evaluation Result</h2>
+                 <div id="resultBox" class="result-default max-w-3xl mx-auto">
+                     <p id="resultCategory" class="font-bold text-lg mb-2"></p>
+                     <p id="resultRationale" class="text-gray-700 text-base"></p>
+                     <p id="resultDisclaimer" class="text-sm text-gray-600 mt-4 italic"></p>
+                 </div>
+            </div>
+
+            <div class="text-center">
+                 <button id="backToLandingButton" class="action-button back-button">
+                    ← Back to Framework Description
+                 </button>
+            </div>
+
+        </div> <div id="pdfContent" class="hidden"></div>
+
+    </div> <script>
         // --- Initialization ---
         const form = document.getElementById('taxonomyForm');
         const resultArea = document.getElementById('resultArea');
@@ -450,32 +294,46 @@
         const otherStakeholderInput = document.getElementById('otherStakeholderInput');
         const stakeholderPromptsDiv = document.getElementById('stakeholderPrompts');
         const notesValueLabel = document.getElementById('notesValueLabel');
-
+        const landingPage = document.getElementById('landingPage');
+        const toolPage = document.getElementById('toolPage');
+        const goToToolButton = document.getElementById('goToToolButton');
+        const backToLandingButton = document.getElementById('backToLandingButton');
 
         // Store results globally for PDF export
         let currentResultData = null;
         // Store calculated dimension scores
         let dimensionScores = { nature: null, risk: null, ethics: null, value: null, human: null, feasibility: null };
         // Store dimension descriptions
-        const dimensionDescriptions = {
-            nature: "Focus: The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation.",
-            risk: "Focus: Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk.",
-            ethics: "Focus: Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern.",
-            value: "Focus: The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value.",
-            human: "Focus: The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement.",
-            feasibility: "Focus: The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility."
+        const dimensionDescriptions = { /* ... same as before ... */
+             nature: "Focus: The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation.",
+             risk: "Focus: Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk.",
+             ethics: "Focus: Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern.",
+             value: "Focus: The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value.",
+             human: "Focus: The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement.",
+             feasibility: "Focus: The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility."
         };
 
-        // --- Helper Functions ---
-        function getRadioValue(name) {
-            const radio = form.querySelector(`input[name="${name}"]:checked`);
-            return radio ? parseInt(radio.value) : null;
+        // --- Navigation Logic ---
+        function showLandingPage() {
+            landingPage.classList.remove('hidden');
+            toolPage.classList.add('hidden');
+            window.scrollTo(0, 0); // Scroll to top
         }
-        function getRadioLabel(name) {
-             const radio = form.querySelector(`input[name="${name}"]:checked`);
-             return radio ? radio.closest('label').textContent.trim() : 'N/A';
+
+        function showToolPage() {
+            landingPage.classList.add('hidden');
+            toolPage.classList.remove('hidden');
+            window.scrollTo(0, 0); // Scroll to top
         }
-        function getDimensionQuestionData(dimensionName) {
+
+        goToToolButton.addEventListener('click', showToolPage);
+        backToLandingButton.addEventListener('click', showLandingPage);
+
+
+        // --- Helper Functions (getRadioValue, getRadioLabel, getDimensionQuestionData, getSelectedStakeholders - same as before) ---
+        function getRadioValue(name) { const radio = form.querySelector(`input[name="${name}"]:checked`); return radio ? parseInt(radio.value) : null; }
+        function getRadioLabel(name) { const radio = form.querySelector(`input[name="${name}"]:checked`); return radio ? radio.closest('label').textContent.trim() : 'N/A'; }
+        function getDimensionQuestionData(dimensionName) { /* ... same as before ... */
             const questions = {};
             const inputs = form.querySelectorAll(`fieldset[data-dimension="${dimensionName}"] input[type="radio"]`);
             const uniqueNames = [...new Set(Array.from(inputs).map(input => input.name))];
@@ -487,306 +345,204 @@
             });
             return questions;
         }
-        function getSelectedStakeholders() {
+        function getSelectedStakeholders() { /* ... same as before ... */
             const selected = [];
             stakeholderCheckboxes.forEach(checkbox => {
                 if (checkbox.checked) {
                     if (checkbox.value === 'Other') {
                         const otherText = otherStakeholderInput.value.trim();
-                        if (otherText) {
-                            selected.push(`Other (${otherText})`);
-                        } else {
-                             selected.push('Other (Not specified)');
-                        }
-                    } else {
-                        selected.push(checkbox.value);
-                    }
+                        selected.push(otherText ? `Other (${otherText})` : 'Other (Not specified)');
+                    } else { selected.push(checkbox.value); }
                 }
             });
             return selected;
         }
 
-        // --- Stakeholder Prompt Logic ---
-        function updateStakeholderPrompts() {
-            const selected = getSelectedStakeholders();
-            let promptsHTML = '';
-            let baseNotesLabel = "Key Impacts (Positive/Negative) & Stakeholder Notes";
-            let specificPrompts = [];
-
-            if (selected.length > 0) {
-                promptsHTML = '<p class="font-medium mb-2">Consider the specific impact on:</p><ul>';
-                selected.forEach(stakeholder => {
-                    let prompt = '';
-                    if (stakeholder.startsWith('Students')) prompt = 'How might this affect student learning outcomes, engagement, accessibility, or skill development?';
-                    else if (stakeholder.startsWith('Faculty')) prompt = 'How might this change faculty workload, teaching methods, research capacity, or job satisfaction?';
-                    else if (stakeholder.startsWith('Admin Staff')) prompt = 'How might this impact administrative efficiency, processes, required skills, or staffing levels?';
-                    else if (stakeholder.startsWith('IT Staff')) prompt = 'What are the implications for IT infrastructure, support, security, and data management?';
-                    else if (stakeholder.startsWith('Researchers')) prompt = 'How might this affect research methodologies, data analysis capabilities, or collaboration?';
-                    else if (stakeholder.startsWith('Other')) prompt = `Consider the specific impacts on the 'Other' group: ${otherStakeholderInput.value.trim() || '(Not specified)'}.`;
-
-                    if (prompt) {
-                        promptsHTML += `<li><strong>${stakeholder.split(' (')[0]}:</strong> ${prompt}</li>`;
-                        specificPrompts.push(stakeholder.split(' (')[0]); // Add group name for label
-                    }
-                });
-                promptsHTML += '</ul>';
-                stakeholderPromptsDiv.innerHTML = promptsHTML;
-                stakeholderPromptsDiv.classList.remove('hidden');
-                // Update notes label
-                notesValueLabel.textContent = `${baseNotesLabel} (Focusing on: ${specificPrompts.join(', ')})`;
-
-            } else {
-                stakeholderPromptsDiv.classList.add('hidden');
-                stakeholderPromptsDiv.innerHTML = '';
-                notesValueLabel.textContent = baseNotesLabel; // Reset label
-            }
+        // --- Stakeholder Prompt Logic (updateStakeholderPrompts - same as before) ---
+        function updateStakeholderPrompts() { /* ... same as before ... */
+             const selected = getSelectedStakeholders();
+             let promptsHTML = '';
+             let baseNotesLabel = "Key Impacts (Positive/Negative) & Stakeholder Notes";
+             let specificPrompts = [];
+             if (selected.length > 0) {
+                 promptsHTML = '<p class="font-medium mb-2">Consider the specific impact on:</p><ul>';
+                 selected.forEach(stakeholder => {
+                     let prompt = '';
+                     if (stakeholder.startsWith('Students')) prompt = 'How might this affect student learning outcomes, engagement, accessibility, or skill development?';
+                     else if (stakeholder.startsWith('Faculty')) prompt = 'How might this change faculty workload, teaching methods, research capacity, or job satisfaction?';
+                     else if (stakeholder.startsWith('Admin Staff')) prompt = 'How might this impact administrative efficiency, processes, required skills, or staffing levels?';
+                     else if (stakeholder.startsWith('IT Staff')) prompt = 'What are the implications for IT infrastructure, support, security, and data management?';
+                     else if (stakeholder.startsWith('Researchers')) prompt = 'How might this affect research methodologies, data analysis capabilities, or collaboration?';
+                     else if (stakeholder.startsWith('Other')) prompt = `Consider the specific impacts on the 'Other' group: ${otherStakeholderInput.value.trim() || '(Not specified)'}.`;
+                     if (prompt) {
+                         promptsHTML += `<li><strong>${stakeholder.split(' (')[0]}:</strong> ${prompt}</li>`;
+                         specificPrompts.push(stakeholder.split(' (')[0]);
+                     }
+                 });
+                 promptsHTML += '</ul>';
+                 stakeholderPromptsDiv.innerHTML = promptsHTML;
+                 stakeholderPromptsDiv.classList.remove('hidden');
+                 notesValueLabel.textContent = `${baseNotesLabel} (Focusing on: ${specificPrompts.join(', ')})`;
+             } else {
+                 stakeholderPromptsDiv.classList.add('hidden');
+                 stakeholderPromptsDiv.innerHTML = '';
+                 notesValueLabel.textContent = baseNotesLabel;
+             }
         }
 
-        // --- Dimension Score Calculation Functions (Same as before) ---
-        function calculateNatureScore() { /* ... no changes ... */
-            const scores = [getRadioValue('nature_repetitiveness'), getRadioValue('nature_cognitive'), getRadioValue('nature_data')];
-            if (scores.some(s => s === null)) return null;
-            const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-            return parseFloat(avg.toFixed(2));
-        }
-        function calculateRiskScore() { /* ... no changes ... */
-            const scores = [getRadioValue('risk_privacy'), getRadioValue('risk_bias'), getRadioValue('risk_safety'), getRadioValue('risk_integrity'), getRadioValue('risk_operational')];
-            if (scores.some(s => s === null)) return null;
-            return Math.max(...scores);
-        }
-        function calculateEthicsScore() { /* ... no changes ... */
-            const scores = [getRadioValue('ethics_fairness'), getRadioValue('ethics_transparency'), getRadioValue('ethics_accountability'), getRadioValue('ethics_dignity')];
-             if (scores.some(s => s === null)) return null;
-            return Math.max(...scores);
-        }
-        function calculateValueScore() { /* ... no changes ... */
-             const scores = [getRadioValue('value_student'), getRadioValue('value_staff'), getRadioValue('value_institution')];
-            if (scores.some(s => s === null)) return null;
-            const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-            return parseFloat(avg.toFixed(2));
-        }
-        function calculateHumanScore() { /* ... no changes ... */
-             const scores = [getRadioValue('human_empathy'), getRadioValue('human_mentorship'), getRadioValue('human_communication'), getRadioValue('human_community')];
-             if (scores.some(s => s === null)) return null;
-            return Math.max(...scores);
-        }
-        function calculateFeasibilityScore() { /* ... no changes ... */
-             const scores = [getRadioValue('feasibility_tech'), getRadioValue('feasibility_data'), getRadioValue('feasibility_cost'), getRadioValue('feasibility_skills'), getRadioValue('feasibility_policy')];
-            if (scores.some(s => s === null)) return null;
-            const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-            return parseFloat(avg.toFixed(2));
-        }
+        // --- Dimension Score Calculation Functions (calculate...Score - same as before) ---
+        function calculateNatureScore() { const scores = [getRadioValue('nature_repetitiveness'), getRadioValue('nature_cognitive'), getRadioValue('nature_data')]; if (scores.some(s => s === null)) return null; const avg = scores.reduce((a, b) => a + b, 0) / scores.length; return parseFloat(avg.toFixed(2)); }
+        function calculateRiskScore() { const scores = [getRadioValue('risk_privacy'), getRadioValue('risk_bias'), getRadioValue('risk_safety'), getRadioValue('risk_integrity'), getRadioValue('risk_operational')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); }
+        function calculateEthicsScore() { const scores = [getRadioValue('ethics_fairness'), getRadioValue('ethics_transparency'), getRadioValue('ethics_accountability'), getRadioValue('ethics_dignity')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); }
+        function calculateValueScore() { const scores = [getRadioValue('value_student'), getRadioValue('value_staff'), getRadioValue('value_institution')]; if (scores.some(s => s === null)) return null; const avg = scores.reduce((a, b) => a + b, 0) / scores.length; return parseFloat(avg.toFixed(2)); }
+        function calculateHumanScore() { const scores = [getRadioValue('human_empathy'), getRadioValue('human_mentorship'), getRadioValue('human_communication'), getRadioValue('human_community')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); }
+        function calculateFeasibilityScore() { const scores = [getRadioValue('feasibility_tech'), getRadioValue('feasibility_data'), getRadioValue('feasibility_cost'), getRadioValue('feasibility_skills'), getRadioValue('feasibility_policy')]; if (scores.some(s => s === null)) return null; const avg = scores.reduce((a, b) => a + b, 0) / scores.length; return parseFloat(avg.toFixed(2)); }
 
-        // --- Update Dimension Score Display ---
-        function updateScoreDisplay(dimensionName, score) {
-            const scoreElement = document.getElementById(`score_${dimensionName}`);
-            if (scoreElement) {
-                scoreElement.textContent = score !== null ? score : 'N/A';
-            }
-        }
+        // --- Update Dimension Score Display (updateScoreDisplay - same as before) ---
+        function updateScoreDisplay(dimensionName, score) { const scoreElement = document.getElementById(`score_${dimensionName}`); if (scoreElement) { scoreElement.textContent = score !== null ? score : 'N/A'; } }
 
         // --- Event Listeners ---
-        // Update scores dynamically on radio change
         form.addEventListener('change', (event) => {
+            // Update scores on radio change
             if (event.target.type === 'radio') {
                 const fieldset = event.target.closest('fieldset[data-dimension]');
                 if (fieldset) {
                     const dimensionName = fieldset.dataset.dimension;
                     let score = null;
-                    // Use a dynamic call instead of switch for brevity
                     const functionName = `calculate${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)}Score`;
-                    if (typeof window[functionName] === 'function') {
-                         score = window[functionName]();
-                    }
+                    if (typeof window[functionName] === 'function') { score = window[functionName](); }
                     dimensionScores[dimensionName] = score;
                     updateScoreDisplay(dimensionName, score);
                 }
             }
-            // Show/hide 'Other Stakeholder' input
+            // Handle 'Other Stakeholder' checkbox and input
             if (event.target === otherStakeholderCheck) {
                  otherStakeholderInput.classList.toggle('hidden', !event.target.checked);
-                 if (!event.target.checked) {
-                     otherStakeholderInput.value = ''; // Clear input if unchecked
-                 }
-                 updateStakeholderPrompts(); // Update prompts when 'Other' is toggled
+                 if (!event.target.checked) { otherStakeholderInput.value = ''; }
+                 updateStakeholderPrompts();
             }
-            // Update prompts on any stakeholder change
-            if (event.target.name === 'stakeholder') {
-                updateStakeholderPrompts();
-            }
+            if (event.target.name === 'stakeholder') { updateStakeholderPrompts(); }
         });
-         // Update prompts when 'Other' text changes
-         otherStakeholderInput.addEventListener('input', updateStakeholderPrompts);
+        otherStakeholderInput.addEventListener('input', updateStakeholderPrompts);
 
 
         // --- Form Submission Handler ---
         form.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            // Recalculate all scores on submit
-            dimensionScores.nature = calculateNatureScore();
-            dimensionScores.risk = calculateRiskScore();
-            dimensionScores.ethics = calculateEthicsScore();
-            dimensionScores.value = calculateValueScore();
-            dimensionScores.human = calculateHumanScore();
-            dimensionScores.feasibility = calculateFeasibilityScore();
+            // Recalculate scores
+            Object.keys(dimensionScores).forEach(dim => {
+                 const functionName = `calculate${dim.charAt(0).toUpperCase() + dim.slice(1)}Score`;
+                 if (typeof window[functionName] === 'function') { dimensionScores[dim] = window[functionName](); }
+            });
 
             // Validation
             const allScoresCalculated = Object.values(dimensionScores).every(score => score !== null);
             if (!allScoresCalculated) {
                  alert('Please answer all questions in each dimension before determining the category.');
-                 exportPdfButton.classList.add('hidden');
-                 currentResultData = null;
-                 resultArea.classList.add('hidden');
+                 exportPdfButton.classList.add('hidden'); currentResultData = null; resultArea.classList.add('hidden');
                  const firstInvalid = form.querySelector('input[type="radio"]:invalid');
                  if (firstInvalid) { firstInvalid.closest('.question-item')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
                  return;
             }
 
-            // --- Heuristic Logic using Dimension Scores (Same logic as before) ---
+            // --- Heuristic Logic (Same as before) ---
             const HIGH_RISK_THRESHOLD = 4; const MEDIUM_RISK_THRESHOLD = 2.5;
             const HIGH_ETHICS_THRESHOLD = 4; const MEDIUM_ETHICS_THRESHOLD = 2.5;
             const ESSENTIAL_HUMAN_THRESHOLD = 3.5; const IMPORTANT_HUMAN_THRESHOLD = 2.5;
             const HIGH_FEASIBILITY_THRESHOLD = 4; const LOW_FEASIBILITY_THRESHOLD = 2;
-            const HIGH_VALUE_THRESHOLD = 4; // Re-added for clarity, though not strictly used in current logic path to full auto
-            const MEDIUM_VALUE_THRESHOLD = 2.5; // Used as minimum value for automation path
+            const MEDIUM_VALUE_THRESHOLD = 2.5;
             const LOW_AUTOMATABILITY_THRESHOLD = 2.5;
-
-            let suggestedCategory = "Undetermined";
-            let rationale = "";
-            let categoryClass = "result-default";
-
-            if (dimensionScores.risk >= HIGH_RISK_THRESHOLD || dimensionScores.ethics >= HIGH_ETHICS_THRESHOLD || dimensionScores.human >= ESSENTIAL_HUMAN_THRESHOLD) {
-                suggestedCategory = "Human-Led (No/Minimal AI)";
-                rationale = `High risk (>=${HIGH_RISK_THRESHOLD}), ethical concerns (>=${HIGH_ETHICS_THRESHOLD}), or essential human element (>=${ESSENTIAL_HUMAN_THRESHOLD}) strongly suggest minimal AI involvement.`;
-                categoryClass = "result-human-led";
-            } else if (dimensionScores.risk >= MEDIUM_RISK_THRESHOLD || dimensionScores.ethics >= MEDIUM_ETHICS_THRESHOLD || dimensionScores.human >= IMPORTANT_HUMAN_THRESHOLD) {
-                suggestedCategory = "AI-Assisted (Human in Control)";
-                 rationale = `Moderate risk (>=${MEDIUM_RISK_THRESHOLD}), ethical concerns (>=${MEDIUM_ETHICS_THRESHOLD}), or important human element (>=${IMPORTANT_HUMAN_THRESHOLD}) indicate AI could assist, but requires significant human oversight.`;
-                categoryClass = "result-ai-assisted";
-                if (dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD) { rationale += " Low feasibility further limits the scope."; }
-            }
-            else if (dimensionScores.feasibility >= HIGH_FEASIBILITY_THRESHOLD && dimensionScores.value >= MEDIUM_VALUE_THRESHOLD) {
-                 if (dimensionScores.nature > LOW_AUTOMATABILITY_THRESHOLD) {
-                     if (dimensionScores.human < IMPORTANT_HUMAN_THRESHOLD) {
-                        suggestedCategory = "Full Automation (Minimal Oversight Post-Setup)";
-                        rationale = `Low risk/ethics/human need, combined with high feasibility (>=${HIGH_FEASIBILITY_THRESHOLD}), high value (>=${MEDIUM_VALUE_THRESHOLD}) and suitable task nature, points towards potential full automation.`;
-                        categoryClass = "result-full-automation";
-                     } else {
-                        suggestedCategory = "High Automation Potential (Human Supervising)";
-                        rationale = `Low risk/ethics, high feasibility (>=${HIGH_FEASIBILITY_THRESHOLD}), high value (>=${MEDIUM_VALUE_THRESHOLD}) and suitable task nature suggest significant automation potential, but human supervision is needed due to some human element requirement.`;
-                        categoryClass = "result-high-automation";
-                     }
-                 } else {
-                      suggestedCategory = "AI-Assisted (Human in Control)";
-                      rationale = `Although risk/ethics/human factors are low and feasibility/value are high, the task nature (score <=${LOW_AUTOMATABILITY_THRESHOLD}) suggests AI assistance is more appropriate than full automation.`;
-                      categoryClass = "result-ai-assisted";
-                 }
-            }
-            else {
+            let suggestedCategory = "Undetermined"; let rationale = ""; let categoryClass = "result-default";
+            // ... [Heuristic logic identical to previous version] ...
+             if (dimensionScores.risk >= HIGH_RISK_THRESHOLD || dimensionScores.ethics >= HIGH_ETHICS_THRESHOLD || dimensionScores.human >= ESSENTIAL_HUMAN_THRESHOLD) {
+                 suggestedCategory = "Human-Led (No/Minimal AI)";
+                 rationale = `High risk (>=${HIGH_RISK_THRESHOLD}), ethical concerns (>=${HIGH_ETHICS_THRESHOLD}), or essential human element (>=${ESSENTIAL_HUMAN_THRESHOLD}) strongly suggest minimal AI involvement.`;
+                 categoryClass = "result-human-led";
+             } else if (dimensionScores.risk >= MEDIUM_RISK_THRESHOLD || dimensionScores.ethics >= MEDIUM_ETHICS_THRESHOLD || dimensionScores.human >= IMPORTANT_HUMAN_THRESHOLD) {
                  suggestedCategory = "AI-Assisted (Human in Control)";
-                 rationale = "Based on the overall assessment across dimensions (e.g., moderate feasibility, complex nature, or mixed factors), AI assistance with human control appears most suitable.";
-                 if (dimensionScores.feasibility < HIGH_FEASIBILITY_THRESHOLD && dimensionScores.feasibility > LOW_FEASIBILITY_THRESHOLD) { rationale += " Feasibility is moderate, favoring assistance."; }
-                 else if (dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD) { rationale += " Low feasibility limits automation potential."; }
-                 if (dimensionScores.nature <= LOW_AUTOMATABILITY_THRESHOLD) { rationale += " Task nature suggests human judgment is beneficial."; }
+                  rationale = `Moderate risk (>=${MEDIUM_RISK_THRESHOLD}), ethical concerns (>=${MEDIUM_ETHICS_THRESHOLD}), or important human element (>=${IMPORTANT_HUMAN_THRESHOLD}) indicate AI could assist, but requires significant human oversight.`;
                  categoryClass = "result-ai-assisted";
-            }
-
+                 if (dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD) { rationale += " Low feasibility further limits the scope."; }
+             }
+             else if (dimensionScores.feasibility >= HIGH_FEASIBILITY_THRESHOLD && dimensionScores.value >= MEDIUM_VALUE_THRESHOLD) {
+                  if (dimensionScores.nature > LOW_AUTOMATABILITY_THRESHOLD) {
+                      if (dimensionScores.human < IMPORTANT_HUMAN_THRESHOLD) {
+                         suggestedCategory = "Full Automation (Minimal Oversight Post-Setup)";
+                         rationale = `Low risk/ethics/human need, combined with high feasibility (>=${HIGH_FEASIBILITY_THRESHOLD}), high value (>=${MEDIUM_VALUE_THRESHOLD}) and suitable task nature, points towards potential full automation.`;
+                         categoryClass = "result-full-automation";
+                      } else {
+                         suggestedCategory = "High Automation Potential (Human Supervising)";
+                         rationale = `Low risk/ethics, high feasibility (>=${HIGH_FEASIBILITY_THRESHOLD}), high value (>=${MEDIUM_VALUE_THRESHOLD}) and suitable task nature suggest significant automation potential, but human supervision is needed due to some human element requirement.`;
+                         categoryClass = "result-high-automation";
+                      }
+                  } else {
+                       suggestedCategory = "AI-Assisted (Human in Control)";
+                       rationale = `Although risk/ethics/human factors are low and feasibility/value are high, the task nature (score <=${LOW_AUTOMATABILITY_THRESHOLD}) suggests AI assistance is more appropriate than full automation.`;
+                       categoryClass = "result-ai-assisted";
+                  }
+             }
+             else {
+                  suggestedCategory = "AI-Assisted (Human in Control)";
+                  rationale = "Based on the overall assessment across dimensions (e.g., moderate feasibility, complex nature, or mixed factors), AI assistance with human control appears most suitable.";
+                  if (dimensionScores.feasibility < HIGH_FEASIBILITY_THRESHOLD && dimensionScores.feasibility > LOW_FEASIBILITY_THRESHOLD) { rationale += " Feasibility is moderate, favoring assistance."; }
+                  else if (dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD) { rationale += " Low feasibility limits automation potential."; }
+                  if (dimensionScores.nature <= LOW_AUTOMATABILITY_THRESHOLD) { rationale += " Task nature suggests human judgment is beneficial."; }
+                  categoryClass = "result-ai-assisted";
+             }
 
              // --- Store results for PDF export ---
-             currentResultData = {
-                taskName: document.getElementById('taskName').value,
-                evaluator: document.getElementById('evaluator').value,
-                evalDate: document.getElementById('evalDate').value,
-                stakeholders: getSelectedStakeholders(), // Get array of selected stakeholders
-                dimensions: {
-                    nature: { score: dimensionScores.nature, description: dimensionDescriptions.nature, questions: getDimensionQuestionData('nature'), notes: document.getElementById('notesNature').value },
-                    risk: { score: dimensionScores.risk, description: dimensionDescriptions.risk, questions: getDimensionQuestionData('risk'), notes: document.getElementById('notesRisk').value },
-                    ethics: { score: dimensionScores.ethics, description: dimensionDescriptions.ethics, questions: getDimensionQuestionData('ethics'), notes: document.getElementById('notesEthics').value },
-                    value: { score: dimensionScores.value, description: dimensionDescriptions.value, questions: getDimensionQuestionData('value'), notes: document.getElementById('notesValue').value },
-                    human: { score: dimensionScores.human, description: dimensionDescriptions.human, questions: getDimensionQuestionData('human'), notes: document.getElementById('notesHuman').value },
-                    feasibility: { score: dimensionScores.feasibility, description: dimensionDescriptions.feasibility, questions: getDimensionQuestionData('feasibility'), notes: document.getElementById('notesFeasibility').value }
-                },
-                suggestedCategory: suggestedCategory,
-                rationale: rationale,
-                disclaimer: `Disclaimer: This is a preliminary suggestion based on the calculated scores. A thorough discussion involving relevant stakeholders, considering the detailed notes and context, is crucial for the final decision.`
-            };
-
+             currentResultData = { /* ... same structure as before, includes stakeholders array and dimension descriptions ... */
+                 taskName: document.getElementById('taskName').value, evaluator: document.getElementById('evaluator').value, evalDate: document.getElementById('evalDate').value,
+                 stakeholders: getSelectedStakeholders(),
+                 dimensions: {
+                     nature: { score: dimensionScores.nature, description: dimensionDescriptions.nature, questions: getDimensionQuestionData('nature'), notes: document.getElementById('notesNature').value },
+                     risk: { score: dimensionScores.risk, description: dimensionDescriptions.risk, questions: getDimensionQuestionData('risk'), notes: document.getElementById('notesRisk').value },
+                     ethics: { score: dimensionScores.ethics, description: dimensionDescriptions.ethics, questions: getDimensionQuestionData('ethics'), notes: document.getElementById('notesEthics').value },
+                     value: { score: dimensionScores.value, description: dimensionDescriptions.value, questions: getDimensionQuestionData('value'), notes: document.getElementById('notesValue').value },
+                     human: { score: dimensionScores.human, description: dimensionDescriptions.human, questions: getDimensionQuestionData('human'), notes: document.getElementById('notesHuman').value },
+                     feasibility: { score: dimensionScores.feasibility, description: dimensionDescriptions.feasibility, questions: getDimensionQuestionData('feasibility'), notes: document.getElementById('notesFeasibility').value }
+                 },
+                 suggestedCategory: suggestedCategory, rationale: rationale,
+                 disclaimer: `Disclaimer: This is a preliminary suggestion based on the calculated scores. A thorough discussion involving relevant stakeholders, considering the detailed notes and context, is crucial for the final decision.`
+             };
 
             // --- Display Results ---
             resultCategory.textContent = `Suggested Category: ${suggestedCategory}`;
             resultRationale.textContent = `Rationale: ${rationale}`;
             resultDisclaimer.textContent = currentResultData.disclaimer;
-
             resultBox.className = '';
             resultBox.classList.add('resultBox', 'max-w-3xl', 'mx-auto', categoryClass);
-
             resultArea.classList.remove('hidden');
             exportPdfButton.classList.remove('hidden');
             resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
-        // --- PDF Export Handler ---
+        // --- PDF Export Handler (PDF construction updated to include descriptions) ---
         exportPdfButton.addEventListener('click', function() {
-            if (!currentResultData) {
-                alert("Please determine the category first before exporting.");
-                return;
-            }
+            if (!currentResultData) { alert("Please determine the category first before exporting."); return; }
 
-            // --- Construct HTML content for the PDF ---
-            let pdfHTML = `
-                <h1>AI Task Taxonomy Evaluation Report</h1>
-                <h2>Task Identification</h2>
-                <p><span class="label">Task Name:</span> ${currentResultData.taskName || 'N/A'}</p>
-                <p><span class="label">Evaluator(s):</span> ${currentResultData.evaluator || 'N/A'}</p>
-                <p><span class="label">Date:</span> ${currentResultData.evalDate || 'N/A'}</p>
-                <p class="stakeholder-list-pdf"><span class="label">Key Stakeholders:</span> ${currentResultData.stakeholders.length > 0 ? currentResultData.stakeholders.join(', ') : 'None selected'}</p>
-
-                <h2>Dimension Evaluation</h2>`;
-
-            // Loop through dimensions
+            // Construct HTML for PDF
+            let pdfHTML = `<h1>AI Task Taxonomy Evaluation Report</h1><h2>Task Identification</h2> <p><span class="label">Task Name:</span> ${currentResultData.taskName || 'N/A'}</p> <p><span class="label">Evaluator(s):</span> ${currentResultData.evaluator || 'N/A'}</p> <p><span class="label">Date:</span> ${currentResultData.evalDate || 'N/A'}</p> <p class="stakeholder-list-pdf"><span class="label">Key Stakeholders:</span> ${currentResultData.stakeholders.length > 0 ? currentResultData.stakeholders.join(', ') : 'None selected'}</p> <h2>Dimension Evaluation</h2>`;
             let dimensionIndex = 1;
             for (const [key, data] of Object.entries(currentResultData.dimensions)) {
                 const title = key.charAt(0).toUpperCase() + key.slice(1);
                  pdfHTML += `<h3>${dimensionIndex}. ${title}</h3>`;
-                 pdfHTML += `<p class="dimension-desc-pdf">${data.description || ''}</p>`; // Add description
-
-                // Add individual question answers
+                 pdfHTML += `<p class="dimension-desc-pdf">${data.description || ''}</p>`; // Include description
                 for (const [qKey, qData] of Object.entries(data.questions)) {
-                     // Format question text nicely (e.g., 'repetitiveness' -> 'Repetitiveness')
                      const qText = qKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                     pdfHTML += `<div class="question-block">
-                                    <p class="question-text">${qText}:</p>
-                                    <p class="question-answer">${qData.label} (Score: ${qData.value ?? 'N/A'})</p>
-                                 </div>`;
+                     pdfHTML += `<div class="question-block"><p class="question-text">${qText}:</p><p class="question-answer">${qData.label} (Score: ${qData.value ?? 'N/A'})</p></div>`;
                 }
-
                  pdfHTML += `<p class="notes"><span class="label">Notes:</span> ${data.notes || 'None'}</p>`;
                  pdfHTML += `<p class="dimension-score-pdf">Overall Dimension Score: ${data.score ?? 'N/A'}</p>`;
                  dimensionIndex++;
             }
-
-            // Add final result section
-            pdfHTML += `
-                <div class="result-section">
-                    <h2>Evaluation Result</h2>
-                    <p class="result-category"><span class="label">Suggested Category:</span> ${currentResultData.suggestedCategory}</p>
-                    <p class="result-rationale"><span class="label">Rationale:</span> ${currentResultData.rationale}</p>
-                    <p class="result-disclaimer">${currentResultData.disclaimer}</p>
-                </div>
-            `;
-
+            pdfHTML += `<div class="result-section"><h2>Evaluation Result</h2><p class="result-category"><span class="label">Suggested Category:</span> ${currentResultData.suggestedCategory}</p><p class="result-rationale"><span class="label">Rationale:</span> ${currentResultData.rationale}</p><p class="result-disclaimer">${currentResultData.disclaimer}</p></div>`;
             pdfContentDiv.innerHTML = pdfHTML;
 
             // Configure and generate PDF
             const filename = `AI_Taxonomy_Report_${(currentResultData.taskName || 'task').replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`;
-            const opt = {
-              margin: [0.5, 0.5, 0.5, 0.5], filename: filename,
-              image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { scale: 2, useCORS: true, logging: false },
-              jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
+            const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true, logging: false }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
             console.log("Generating PDF...");
             html2pdf().from(pdfContentDiv).set(opt).save()
               .then(() => { console.log("PDF Generated Successfully."); })
@@ -795,7 +551,10 @@
 
         // --- Initial Setup ---
         document.getElementById('evalDate').valueAsDate = new Date();
-        updateStakeholderPrompts(); // Initial call in case of pre-filled forms (though unlikely here)
+        updateStakeholderPrompts(); // Initial call
+
+        // Show Landing Page by default
+        showLandingPage();
 
     </script>
 
