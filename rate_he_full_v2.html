@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>RATE‑HE Full Tool</title></head>
+<body>
+<!-- landing and task pages omitted for brevity -->
+
+    <div id="evaluationPage_Nature" class="page" data-page-index="2">
+      <h2 class="text-2xl font-semibold text-center mb-6 dark:text-gray-100">Step 2 of 9 – Nature &amp; Complexity</h2>
+      <form class="dimension-form space-y-8">
+        <fieldset class="border border-gray-300 p-5 rounded-md" data-dimension="nature">
+          <legend class="font-semibold mb-4">1 · Nature &amp; Complexity</legend>
+          
+          <div class="question-item">
+            <span class="question-label">Repetitiveness</span>
+            <div class="scale-container">
+              <label><input type="radio" name="nature_repetitiveness" value="1" required> 1</label>
+<label><input type="radio" name="nature_repetitiveness" value="2"> 2</label>
+<label><input type="radio" name="nature_repetitiveness" value="3"> 3</label>
+<label><input type="radio" name="nature_repetitiveness" value="4"> 4</label>
+<label><input type="radio" name="nature_repetitiveness" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Cognitive Load</span>
+            <div class="scale-container">
+              <label><input type="radio" name="nature_cognitive" value="1" required> 1</label>
+<label><input type="radio" name="nature_cognitive" value="2"> 2</label>
+<label><input type="radio" name="nature_cognitive" value="3"> 3</label>
+<label><input type="radio" name="nature_cognitive" value="4"> 4</label>
+<label><input type="radio" name="nature_cognitive" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Data Dependence</span>
+            <div class="scale-container">
+              <label><input type="radio" name="nature_data" value="1" required> 1</label>
+<label><input type="radio" name="nature_data" value="2"> 2</label>
+<label><input type="radio" name="nature_data" value="3"> 3</label>
+<label><input type="radio" name="nature_data" value="4"> 4</label>
+<label><input type="radio" name="nature_data" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Determinism vs. Ambiguity</span>
+            <div class="scale-container">
+              <label><input type="radio" name="nature_ambiguity" value="1" required> 1</label>
+<label><input type="radio" name="nature_ambiguity" value="2"> 2</label>
+<label><input type="radio" name="nature_ambiguity" value="3"> 3</label>
+<label><input type="radio" name="nature_ambiguity" value="4"> 4</label>
+<label><input type="radio" name="nature_ambiguity" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <textarea id="notesNature" class="w-full border-gray-300 rounded-md p-2.5" placeholder="Notes"></textarea>
+          <div class="text-sm font-semibold">Score: <span id="score_nature">N/A</span></div>
+        </fieldset>
+        <div class="flex justify-between">
+          <button type="button" class="action-button back-button navigate-button" data-target-page="taskIdentificationPage">← Back</button>
+          <button type="button" class="action-button nav-button navigate-button" data-target-page="evaluationPage_Risk">Next →</button>
+        </div>
+      </form>
+    </div>
+    
+    <div id="evaluationPage_Risk" class="page" data-page-index="3">
+      <h2 class="text-2xl font-semibold text-center mb-6 dark:text-gray-100">Step 3 of 9 – Risk, Safety &amp; Security</h2>
+      <form class="dimension-form space-y-8">
+        <fieldset class="border border-gray-300 p-5 rounded-md" data-dimension="risk">
+          <legend class="font-semibold mb-4">2 · Risk, Safety &amp; Security</legend>
+          
+          <div class="question-item">
+            <span class="question-label">Data Privacy &amp; Security Risk</span>
+            <div class="scale-container">
+              <label><input type="radio" name="risk_privacy" value="1" required> 1</label>
+<label><input type="radio" name="risk_privacy" value="2"> 2</label>
+<label><input type="radio" name="risk_privacy" value="3"> 3</label>
+<label><input type="radio" name="risk_privacy" value="4"> 4</label>
+<label><input type="radio" name="risk_privacy" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Algorithmic Bias &amp; Fairness Risk</span>
+            <div class="scale-container">
+              <label><input type="radio" name="risk_bias" value="1" required> 1</label>
+<label><input type="radio" name="risk_bias" value="2"> 2</label>
+<label><input type="radio" name="risk_bias" value="3"> 3</label>
+<label><input type="radio" name="risk_bias" value="4"> 4</label>
+<label><input type="radio" name="risk_bias" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Safety &amp; Well‑being Risk</span>
+            <div class="scale-container">
+              <label><input type="radio" name="risk_safety" value="1" required> 1</label>
+<label><input type="radio" name="risk_safety" value="2"> 2</label>
+<label><input type="radio" name="risk_safety" value="3"> 3</label>
+<label><input type="radio" name="risk_safety" value="4"> 4</label>
+<label><input type="radio" name="risk_safety" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Operational &amp; Reputational Risk</span>
+            <div class="scale-container">
+              <label><input type="radio" name="risk_operational" value="1" required> 1</label>
+<label><input type="radio" name="risk_operational" value="2"> 2</label>
+<label><input type="radio" name="risk_operational" value="3"> 3</label>
+<label><input type="radio" name="risk_operational" value="4"> 4</label>
+<label><input type="radio" name="risk_operational" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <textarea id="notesRisk" class="w-full border-gray-300 rounded-md p-2.5" placeholder="Notes"></textarea>
+          <div class="text-sm font-semibold">Score: <span id="score_risk">N/A</span></div>
+        </fieldset>
+        <div class="flex justify-between">
+          <button type="button" class="action-button back-button navigate-button" data-target-page="evaluationPage_Nature">← Back</button>
+          <button type="button" class="action-button nav-button navigate-button" data-target-page="evaluationPage_Ethics">Next →</button>
+        </div>
+      </form>
+    </div>
+    
+    <div id="evaluationPage_Ethics" class="page" data-page-index="4">
+      <h2 class="text-2xl font-semibold text-center mb-6 dark:text-gray-100">Step 4 of 9 – Ethical Considerations</h2>
+      <form class="dimension-form space-y-8">
+        <fieldset class="border border-gray-300 p-5 rounded-md" data-dimension="ethics">
+          <legend class="font-semibold mb-4">3 · Ethical Considerations</legend>
+          
+          <div class="question-item">
+            <span class="question-label">Fairness &amp; Equity Concern</span>
+            <div class="scale-container">
+              <label><input type="radio" name="ethics_fairness" value="1" required> 1</label>
+<label><input type="radio" name="ethics_fairness" value="2"> 2</label>
+<label><input type="radio" name="ethics_fairness" value="3"> 3</label>
+<label><input type="radio" name="ethics_fairness" value="4"> 4</label>
+<label><input type="radio" name="ethics_fairness" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Transparency &amp; Explainability Concern</span>
+            <div class="scale-container">
+              <label><input type="radio" name="ethics_transparency" value="1" required> 1</label>
+<label><input type="radio" name="ethics_transparency" value="2"> 2</label>
+<label><input type="radio" name="ethics_transparency" value="3"> 3</label>
+<label><input type="radio" name="ethics_transparency" value="4"> 4</label>
+<label><input type="radio" name="ethics_transparency" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Accountability &amp; Responsibility Concern</span>
+            <div class="scale-container">
+              <label><input type="radio" name="ethics_accountability" value="1" required> 1</label>
+<label><input type="radio" name="ethics_accountability" value="2"> 2</label>
+<label><input type="radio" name="ethics_accountability" value="3"> 3</label>
+<label><input type="radio" name="ethics_accountability" value="4"> 4</label>
+<label><input type="radio" name="ethics_accountability" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Human Dignity &amp; Autonomy Concern</span>
+            <div class="scale-container">
+              <label><input type="radio" name="ethics_dignity" value="1" required> 1</label>
+<label><input type="radio" name="ethics_dignity" value="2"> 2</label>
+<label><input type="radio" name="ethics_dignity" value="3"> 3</label>
+<label><input type="radio" name="ethics_dignity" value="4"> 4</label>
+<label><input type="radio" name="ethics_dignity" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <textarea id="notesEthics" class="w-full border-gray-300 rounded-md p-2.5" placeholder="Notes"></textarea>
+          <div class="text-sm font-semibold">Score: <span id="score_ethics">N/A</span></div>
+        </fieldset>
+        <div class="flex justify-between">
+          <button type="button" class="action-button back-button navigate-button" data-target-page="evaluationPage_Risk">← Back</button>
+          <button type="button" class="action-button nav-button navigate-button" data-target-page="evaluationPage_Value">Next →</button>
+        </div>
+      </form>
+    </div>
+    
+    <div id="evaluationPage_Value" class="page" data-page-index="5">
+      <h2 class="text-2xl font-semibold text-center mb-6 dark:text-gray-100">Step 5 of 9 – Stakeholder Value &amp; Impact</h2>
+      <form class="dimension-form space-y-8">
+        <fieldset class="border border-gray-300 p-5 rounded-md" data-dimension="value">
+          <legend class="font-semibold mb-4">4 · Stakeholder Value &amp; Impact</legend>
+          
+          <div class="question-item">
+            <span class="question-label">Value for Students</span>
+            <div class="scale-container">
+              <label><input type="radio" name="value_student" value="1" required> 1</label>
+<label><input type="radio" name="value_student" value="2"> 2</label>
+<label><input type="radio" name="value_student" value="3"> 3</label>
+<label><input type="radio" name="value_student" value="4"> 4</label>
+<label><input type="radio" name="value_student" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Value for Staff</span>
+            <div class="scale-container">
+              <label><input type="radio" name="value_staff" value="1" required> 1</label>
+<label><input type="radio" name="value_staff" value="2"> 2</label>
+<label><input type="radio" name="value_staff" value="3"> 3</label>
+<label><input type="radio" name="value_staff" value="4"> 4</label>
+<label><input type="radio" name="value_staff" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Value for Institution</span>
+            <div class="scale-container">
+              <label><input type="radio" name="value_institution" value="1" required> 1</label>
+<label><input type="radio" name="value_institution" value="2"> 2</label>
+<label><input type="radio" name="value_institution" value="3"> 3</label>
+<label><input type="radio" name="value_institution" value="4"> 4</label>
+<label><input type="radio" name="value_institution" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Alignment with Mission/Strategy</span>
+            <div class="scale-container">
+              <label><input type="radio" name="value_alignment" value="1" required> 1</label>
+<label><input type="radio" name="value_alignment" value="2"> 2</label>
+<label><input type="radio" name="value_alignment" value="3"> 3</label>
+<label><input type="radio" name="value_alignment" value="4"> 4</label>
+<label><input type="radio" name="value_alignment" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <textarea id="notesValue" class="w-full border-gray-300 rounded-md p-2.5" placeholder="Notes"></textarea>
+          <div class="text-sm font-semibold">Score: <span id="score_value">N/A</span></div>
+        </fieldset>
+        <div class="flex justify-between">
+          <button type="button" class="action-button back-button navigate-button" data-target-page="evaluationPage_Ethics">← Back</button>
+          <button type="button" class="action-button nav-button navigate-button" data-target-page="evaluationPage_Human">Next →</button>
+        </div>
+      </form>
+    </div>
+    
+    <div id="evaluationPage_Human" class="page" data-page-index="6">
+      <h2 class="text-2xl font-semibold text-center mb-6 dark:text-gray-100">Step 6 of 9 – Human Element Requirement</h2>
+      <form class="dimension-form space-y-8">
+        <fieldset class="border border-gray-300 p-5 rounded-md" data-dimension="human">
+          <legend class="font-semibold mb-4">5 · Human Element Requirement</legend>
+          
+          <div class="question-item">
+            <span class="question-label">Need for Empathy &amp; Interpersonal Skills</span>
+            <div class="scale-container">
+              <label><input type="radio" name="human_empathy" value="1" required> 1</label>
+<label><input type="radio" name="human_empathy" value="2"> 2</label>
+<label><input type="radio" name="human_empathy" value="3"> 3</label>
+<label><input type="radio" name="human_empathy" value="4"> 4</label>
+<label><input type="radio" name="human_empathy" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Need for Mentorship &amp; Guidance</span>
+            <div class="scale-container">
+              <label><input type="radio" name="human_mentorship" value="1" required> 1</label>
+<label><input type="radio" name="human_mentorship" value="2"> 2</label>
+<label><input type="radio" name="human_mentorship" value="3"> 3</label>
+<label><input type="radio" name="human_mentorship" value="4"> 4</label>
+<label><input type="radio" name="human_mentorship" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Need for Nuanced Judgment</span>
+            <div class="scale-container">
+              <label><input type="radio" name="human_judgment" value="1" required> 1</label>
+<label><input type="radio" name="human_judgment" value="2"> 2</label>
+<label><input type="radio" name="human_judgment" value="3"> 3</label>
+<label><input type="radio" name="human_judgment" value="4"> 4</label>
+<label><input type="radio" name="human_judgment" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Need for High‑Stakes Communication</span>
+            <div class="scale-container">
+              <label><input type="radio" name="human_communication" value="1" required> 1</label>
+<label><input type="radio" name="human_communication" value="2"> 2</label>
+<label><input type="radio" name="human_communication" value="3"> 3</label>
+<label><input type="radio" name="human_communication" value="4"> 4</label>
+<label><input type="radio" name="human_communication" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <textarea id="notesHuman" class="w-full border-gray-300 rounded-md p-2.5" placeholder="Notes"></textarea>
+          <div class="text-sm font-semibold">Score: <span id="score_human">N/A</span></div>
+        </fieldset>
+        <div class="flex justify-between">
+          <button type="button" class="action-button back-button navigate-button" data-target-page="evaluationPage_Value">← Back</button>
+          <button type="button" class="action-button nav-button navigate-button" data-target-page="evaluationPage_Feasibility">Next →</button>
+        </div>
+      </form>
+    </div>
+    
+    <div id="evaluationPage_Feasibility" class="page" data-page-index="7">
+      <h2 class="text-2xl font-semibold text-center mb-6 dark:text-gray-100">Step 7 of 9 – Feasibility &amp; Implementation</h2>
+      <form class="dimension-form space-y-8">
+        <fieldset class="border border-gray-300 p-5 rounded-md" data-dimension="feasibility">
+          <legend class="font-semibold mb-4">6 · Feasibility &amp; Implementation</legend>
+          
+          <div class="question-item">
+            <span class="question-label">Technology Maturity &amp; Reliability</span>
+            <div class="scale-container">
+              <label><input type="radio" name="feasibility_tech" value="1" required> 1</label>
+<label><input type="radio" name="feasibility_tech" value="2"> 2</label>
+<label><input type="radio" name="feasibility_tech" value="3"> 3</label>
+<label><input type="radio" name="feasibility_tech" value="4"> 4</label>
+<label><input type="radio" name="feasibility_tech" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Data Availability &amp; Quality</span>
+            <div class="scale-container">
+              <label><input type="radio" name="feasibility_data" value="1" required> 1</label>
+<label><input type="radio" name="feasibility_data" value="2"> 2</label>
+<label><input type="radio" name="feasibility_data" value="3"> 3</label>
+<label><input type="radio" name="feasibility_data" value="4"> 4</label>
+<label><input type="radio" name="feasibility_data" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Cost‑Effectiveness &amp; Resources</span>
+            <div class="scale-container">
+              <label><input type="radio" name="feasibility_cost" value="1" required> 1</label>
+<label><input type="radio" name="feasibility_cost" value="2"> 2</label>
+<label><input type="radio" name="feasibility_cost" value="3"> 3</label>
+<label><input type="radio" name="feasibility_cost" value="4"> 4</label>
+<label><input type="radio" name="feasibility_cost" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <div class="question-item">
+            <span class="question-label">Integration &amp; Policy Alignment</span>
+            <div class="scale-container">
+              <label><input type="radio" name="feasibility_integration" value="1" required> 1</label>
+<label><input type="radio" name="feasibility_integration" value="2"> 2</label>
+<label><input type="radio" name="feasibility_integration" value="3"> 3</label>
+<label><input type="radio" name="feasibility_integration" value="4"> 4</label>
+<label><input type="radio" name="feasibility_integration" value="5"> 5</label>
+            </div>
+          </div>
+        
+          <textarea id="notesFeasibility" class="w-full border-gray-300 rounded-md p-2.5" placeholder="Notes"></textarea>
+          <div class="text-sm font-semibold">Score: <span id="score_feasibility">N/A</span></div>
+        </fieldset>
+        <div class="flex justify-between">
+          <button type="button" class="action-button back-button navigate-button" data-target-page="evaluationPage_Human">← Back</button>
+          <button type="button" class="action-button nav-button navigate-button" data-target-page="evaluationPage_Feasibility">Next →</button>
+        </div>
+      </form>
+    </div>
+    
+<!-- results page placeholder -->
+</body>
+</html>

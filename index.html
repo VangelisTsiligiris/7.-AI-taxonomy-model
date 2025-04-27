@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-     <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
     <style>
         /* Apply Inter font globally */
@@ -92,6 +93,27 @@
         /* Chart Container Style */
         #radarChartContainer { max-width: 500px; margin: 2rem auto; padding: 1rem; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
 
+        /* Info icon tooltip styles */
+        .info-icon { color: #6b7280; cursor: pointer; margin-left: 0.5rem; }
+        .info-tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            max-width: 250px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            transform: translateX(-50%);
+            left: 50%;
+            bottom: 1.5rem; /* Position above the icon */
+        }
+         .info-icon-container { position: relative; display: inline-block; } /* Wrapper for icon and tooltip */
+         .info-icon-container:hover .info-tooltip { opacity: 1; }
+
 
          /* PDF Export Styles */
          #pdfContent { font-family: sans-serif; padding: 20px; color: #333; }
@@ -153,49 +175,48 @@
              <div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
                  <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">The Six Dimensions</h2>
                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-gray-700">
-                     <div class="p-3 bg-white rounded border border-gray-200"><strong>1. Task Nature & Complexity:</strong> Characteristics like repetitiveness, cognitive load, data needs, and creativity requirements.</div>
-                     <div class="p-3 bg-white rounded border border-gray-200"><strong>2. Risk, Safety & Security:</strong> Potential harms like data breaches, bias, safety issues, and integrity concerns.</div>
-                     <div class="p-3 bg-white rounded border border-gray-200"><strong>3. Ethical Considerations:</strong> Alignment with fairness, transparency, accountability, and human dignity.</div>
-                     <div class="p-3 bg-white rounded border border-gray-200"><strong>4. Stakeholder Value & Impact:</strong> Potential benefits or drawbacks for students, staff, and the institution.</div>
-                     <div class="p-3 bg-white rounded border border-gray-200"><strong>5. Human Element Requirement:</strong> Need for empathy, mentorship, nuanced judgment, or complex communication.</div>
-                     <div class="p-3 bg-white rounded border border-gray-200"><strong>6. Feasibility & Implementation:</strong> Practical aspects like tech maturity, data, cost, skills, and policy.</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>1. Task Nature & Complexity:</strong> Characteristics like repetitiveness, cognitive load, data needs, and creativity requirements. [cite: 30, 468]</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>2. Risk, Safety & Security:</strong> Potential harms like data breaches, bias, safety issues, and integrity concerns. [cite: 49, 474]</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>3. Ethical Considerations:</strong> Alignment with fairness, transparency, accountability, and human dignity. [cite: 83, 480]</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>4. Stakeholder Value & Impact:</strong> Potential benefits or drawbacks for students, staff, and the institution. [cite: 123, 486]</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>5. Human Element Requirement:</strong> Need for empathy, mentorship, nuanced judgment, or complex communication. [cite: 157, 490]</div>
+                     <div class="p-3 bg-white rounded border border-gray-200"><strong>6. Feasibility & Implementation:</strong> Practical aspects like tech maturity, data, cost, skills, and policy. [cite: 194, 494]</div>
                  </div>
              </div>
 
-             <!-- Output-category explanations -->
-<div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
+             <div class="mb-10 p-4 border border-gray-200 rounded-lg bg-gray-50">
     <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">
       What the Four Suggested Categories Mean
     </h2>
-  
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
       <div class="p-3 bg-white rounded border border-gray-200">
         <strong>Human-Led (No / Minimal AI)</strong><br>
-        High-risk, ethically sensitive or empathy-heavy tasks.  
-        AI may provide very limited support, but humans stay fully responsible.
+        High-risk, ethically sensitive or empathy-heavy tasks.
+        AI may provide very limited support, but humans stay fully responsible. [cite: 235, 499]
       </div>
-  
+
       <div class="p-3 bg-white rounded border border-gray-200">
         <strong>AI-Assisted (Human in Control)</strong><br>
         AI speeds up or augments parts of the work, yet humans still steer
-        decisions and remain accountable throughout.
+        decisions and remain accountable throughout. [cite: 269, 501]
       </div>
-  
+
       <div class="p-3 bg-white rounded border border-gray-200">
         <strong>High Automation Potential (Human Supervising)</strong><br>
         Most steps can run automatically, but routine human oversight is
-        advisable for edge cases, quality assurance and accountability.
+        advisable for edge cases, quality assurance and accountability. [cite: 307, 504]
       </div>
-  
+
       <div class="p-3 bg-white rounded border border-gray-200">
         <strong>Full Automation (Minimal Oversight Post-Setup)</strong><br>
         Well-defined, low-risk and repeatable tasks suitable for end-to-end
-        automation once properly configured and periodically monitored.
+        automation once properly configured and periodically monitored. [cite: 355, 506]
       </div>
     </div>
   </div>
 
-  
+
             <div class="text-center mt-8">
                 <button data-target-page="taskIdentificationPage" class="action-button nav-button text-lg px-10 py-3 navigate-button">
                     Start Task Identification →
@@ -257,26 +278,42 @@
             <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="nature">
                     <legend class="fieldset-legend">1. Task Nature & Complexity</legend>
-                    <p class="dimension-description">The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation.</p>
+                    <p class="dimension-description">The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation. [cite: 31, 469]</p>
                     <div class="question-item">
                         <span class="question-label">Repetitiveness</span>
+                        <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How routine and predictable is the task? Highly repetitive tasks follow the same steps each time, while variable tasks require different approaches. (High Repetitiveness favours Automation) [cite: 38, 470]</span>
+                        </span>
                         <p class="question-description">How routine and predictable is the task? Highly repetitive tasks follow the same steps each time, while variable tasks require different approaches.</p>
-                        <div class="scale-container"> <label><input type="radio" name="nature_repetitiveness" value="1" required> Highly Variable</label> <label><input type="radio" name="nature_repetitiveness" value="2"> Somewhat Variable</label> <label><input type="radio" name="nature_repetitiveness" value="3"> Mixed</label> <label><input type="radio" name="nature_repetitiveness" value="4"> Somewhat Repetitive</label> <label><input type="radio" name="nature_repetitiveness" value="5"> Highly Repetitive</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="nature_repetitiveness" value="1" required> 1: Highly Variable</label> <label><input type="radio" name="nature_repetitiveness" value="2"> 2: Somewhat Variable</label> <label><input type="radio" name="nature_repetitiveness" value="3"> 3: Mixed</label> <label><input type="radio" name="nature_repetitiveness" value="4"> 4: Somewhat Repetitive</label> <label><input type="radio" name="nature_repetitiveness" value="5"> 5: Highly Repetitive</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Cognitive Load</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">What kind of thinking is required? Simple rule-following, data analysis/interpretation, or complex judgment and creative problem-solving? (Simple rules favour Automation; complex judgment favours Human-Led or AI-Assisted) [cite: 36, 471]</span>
+                        </span>
                         <p class="question-description">What kind of thinking is required? Simple rule-following, data analysis/interpretation, or complex judgment and creative problem-solving?</p>
-                        <div class="scale-container"> <label><input type="radio" name="nature_cognitive" value="1" required> Judgment/Creative</label> <label><input type="radio" name="nature_cognitive" value="3"> Analytical</label> <label><input type="radio" name="nature_cognitive" value="5"> Rule-Following</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="nature_cognitive" value="1" required> 1: Judgment/Creative</label> <label><input type="radio" name="nature_cognitive" value="2"> 2: Analytical/Interpretive</label> <label><input type="radio" name="nature_cognitive" value="3"> 3: Mixed</label> <label><input type="radio" name="nature_cognitive" value="4"> 4: Data Analysis</label> <label><input type="radio" name="nature_cognitive" value="5"> 5: Rule-Following</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Data Dependence</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How much does the task rely on processing data? Consider the volume and type (structured like spreadsheets vs. unstructured like text/images). (High Data Dependence can favour AI) [cite: 41, 472]</span>
+                        </span>
                         <p class="question-description">How much does the task rely on processing data? Consider the volume and type (structured like spreadsheets vs. unstructured like text/images).</p>
-                        <div class="scale-container"> <label><input type="radio" name="nature_data" value="1" required> Low/Qualitative</label> <label><input type="radio" name="nature_data" value="3"> Moderate/Mixed</label> <label><input type="radio" name="nature_data" value="5"> High/Structured</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="nature_data" value="1" required> 1: Low/Qualitative</label> <label><input type="radio" name="nature_data" value="2"> 2: Moderate/Mixed</label> <label><input type="radio" name="nature_data" value="3"> 3: Data Processing Needed</label> <label><input type="radio" name="nature_data" value="4"> 4: Significant Data Analysis</label> <label><input type="radio" name="nature_data" value="5"> 5: High/Structured Data</label> </div>
                     </div>
                      <div class="question-item">
                         <span class="question-label">Determinism vs. Ambiguity</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How clear and unambiguous are the task inputs, processes, and desired outputs? Deterministic tasks have clear rules, while ambiguous ones require interpretation. (Highly Deterministic favours Automation) [cite: 38]</span>
+                        </span>
                         <p class="question-description">How clear and unambiguous are the task inputs, processes, and desired outputs? Deterministic tasks have clear rules, while ambiguous ones require interpretation.</p>
-                        <div class="scale-container"> <label><input type="radio" name="nature_ambiguity" value="1" required> Highly Ambiguous</label> <label><input type="radio" name="nature_ambiguity" value="2"> Somewhat Ambiguous</label> <label><input type="radio" name="nature_ambiguity" value="3"> Mixed</label> <label><input type="radio" name="nature_ambiguity" value="4"> Somewhat Deterministic</label> <label><input type="radio" name="nature_ambiguity" value="5"> Highly Deterministic</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="nature_ambiguity" value="1" required> 1: Highly Ambiguous</label> <label><input type="radio" name="nature_ambiguity" value="2"> 2: Somewhat Ambiguous</label> <label><input type="radio" name="nature_ambiguity" value="3"> 3: Mixed</label> <label><input type="radio" name="nature_ambiguity" value="4"> 4: Somewhat Deterministic</label> <label><input type="radio" name="nature_ambiguity" value="5"> 5: Highly Deterministic</label> </div>
                     </div>
                     <div class="mt-4"> <label for="notesNature" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label> <textarea id="notesNature" name="notesNature" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
                     <div class="dimension-score-display mt-auto"> Dimension Score (Avg): <span class="score-value" id="score_nature">N/A</span> </div>
@@ -297,26 +334,42 @@
              <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="risk">
                     <legend class="fieldset-legend">2. Risk, Safety & Security</legend>
-                    <p class="dimension-description">Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk.</p>
+                    <p class="dimension-description">Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk. [cite: 49, 474]</p>
                     <div class="question-item">
                         <span class="question-label">Data Privacy & Security Risk</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How likely and severe is the potential harm if sensitive data (student, staff, research) involved in this task is breached or misused by the AI? (High Risk necessitates strong safeguards, potentially limiting automation) [cite: 65, 474]</span>
+                        </span>
                         <p class="question-description">How likely and severe is the potential harm if sensitive data (student, staff, research) involved in this task is breached or misused by the AI?</p>
-                        <div class="scale-container"> <label><input type="radio" name="risk_privacy" value="1" required> Low</label> <label><input type="radio" name="risk_privacy" value="3"> Medium</label> <label><input type="radio" name="risk_privacy" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="risk_privacy" value="1" required> 1: Low</label> <label><input type="radio" name="risk_privacy" value="3"> 3: Medium</label> <label><input type="radio" name="risk_privacy" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Algorithmic Bias & Fairness Risk</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How likely is the AI to introduce, perpetuate, or amplify unfair bias against specific groups in its process or outcomes? (High Risk requires careful AI selection, auditing, and human oversight) [cite: 86, 475]</span>
+                        </span>
                          <p class="question-description">How likely is the AI to introduce, perpetuate, or amplify unfair bias against specific groups in its process or outcomes?</p>
-                        <div class="scale-container"> <label><input type="radio" name="risk_bias" value="1" required> Low</label> <label><input type="radio" name="risk_bias" value="3"> Medium</label> <label><input type="radio" name="risk_bias" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="risk_bias" value="1" required> 1: Low</label> <label><input type="radio" name="risk_bias" value="3"> 3: Medium</label> <label><input type="radio" name="risk_bias" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Safety & Well-being Risk</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Could AI errors or misuse in this task lead to direct or indirect physical harm, psychological distress, or negative impacts on well-being? (High Risk strongly disfavours automation of critical functions) [cite: 63, 476]</span>
+                        </span>
                         <p class="question-description">Could AI errors or misuse in this task lead to direct or indirect physical harm, psychological distress, or negative impacts on well-being?</p>
-                        <div class="scale-container"> <label><input type="radio" name="risk_safety" value="1" required> Low</label> <label><input type="radio" name="risk_safety" value="3"> Medium</label> <label><input type="radio" name="risk_safety" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="risk_safety" value="1" required> 1: Low</label> <label><input type="radio" name="risk_safety" value="3"> 3: Medium</label> <label><input type="radio" name="risk_safety" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Operational & Reputational Risk</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How significant is the potential disruption to operations or damage to the institution's reputation if the AI fails, gives wrong results, or is misused? (High Risk warrants caution; High Impact requires robust systems and human backup) [cite: 71, 478, 479]</span>
+                        </span>
                         <p class="question-description">How significant is the potential disruption to operations or damage to the institution's reputation if the AI fails, gives wrong results, or is misused?</p>
-                        <div class="scale-container"> <label><input type="radio" name="risk_operational" value="1" required> Low</label> <label><input type="radio" name="risk_operational" value="3"> Medium</label> <label><input type="radio" name="risk_operational" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="risk_operational" value="1" required> 1: Low</label> <label><input type="radio" name="risk_operational" value="3"> 3: Medium</label> <label><input type="radio" name="risk_operational" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="mt-4"> <label for="notesRisk" class="block text-sm font-medium text-gray-700 mb-1">Key Risks & Mitigation Notes:</label> <textarea id="notesRisk" name="notesRisk" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
                     <div class="dimension-score-display mt-auto"> Dimension Score (Max): <span class="score-value" id="score_risk">N/A</span> </div>
@@ -337,26 +390,42 @@
              <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="ethics">
                     <legend class="fieldset-legend">3. Ethical Considerations</legend>
-                    <p class="dimension-description">Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern.</p>
+                    <p class="dimension-description">Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern. [cite: 83, 480]</p>
                     <div class="question-item">
                         <span class="question-label">Fairness & Equity Concern</span>
+                        <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Does the potential use of AI raise concerns about equitable treatment, access, or outcomes for all individuals or groups affected by the task? [cite: 85, 480]</span>
+                        </span>
                         <p class="question-description">Does the potential use of AI raise concerns about equitable treatment, access, or outcomes for all individuals or groups affected by the task?</p>
-                        <div class="scale-container"> <label><input type="radio" name="ethics_fairness" value="1" required> Low</label> <label><input type="radio" name="ethics_fairness" value="3"> Medium</label> <label><input type="radio" name="ethics_fairness" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="ethics_fairness" value="1" required> 1: Low</label> <label><input type="radio" name="ethics_fairness" value="3"> 3: Medium</label> <label><input type="radio" name="ethics_fairness" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Transparency & Explainability Concern</span>
+                        <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How difficult would it be to understand and explain how the AI reaches its decisions or outputs, especially for high-stakes tasks? [cite: 92, 481]</span>
+                        </span>
                          <p class="question-description">How difficult would it be to understand and explain how the AI reaches its decisions or outputs, especially for high-stakes tasks?</p>
-                        <div class="scale-container"> <label><input type="radio" name="ethics_transparency" value="1" required> Low</label> <label><input type="radio" name="ethics_transparency" value="3"> Medium</label> <label><input type="radio" name="ethics_transparency" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="ethics_transparency" value="1" required> 1: Low</label> <label><input type="radio" name="ethics_transparency" value="3"> 3: Medium</label> <label><input type="radio" name="ethics_transparency" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Accountability & Responsibility Concern</span>
+                        <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Who is responsible if the AI makes an error, causes harm, or operates unethically? Is there a clear line of accountability? [cite: 98, 482]</span>
+                        </span>
                         <p class="question-description">How clear is it who would be responsible if the AI makes an error, causes harm, or operates unethically? Is there a clear line of accountability?</p>
-                        <div class="scale-container"> <label><input type="radio" name="ethics_accountability" value="1" required> Low</label> <label><input type="radio" name="ethics_accountability" value="3"> Medium</label> <label><input type="radio" name="ethics_accountability" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="ethics_accountability" value="1" required> 1: Low</label> <label><input type="radio" name="ethics_accountability" value="3"> 3: Medium</label> <label><input type="radio" name="ethics_accountability" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Human Dignity & Autonomy Concern</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Does the AI's potential role respect human agency, avoid undue influence or deception, and prevent over-reliance that undermines human skills or judgment? [cite: 115, 483]</span>
+                        </span>
                         <p class="question-description">Does the AI's potential role respect human agency, avoid undue influence or deception, and prevent over-reliance that undermines human skills or judgment?</p>
-                        <div class="scale-container"> <label><input type="radio" name="ethics_dignity" value="1" required> Low</label> <label><input type="radio" name="ethics_dignity" value="3"> Medium</label> <label><input type="radio" name="ethics_dignity" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="ethics_dignity" value="1" required> 1: Low</label> <label><input type="radio" name="ethics_dignity" value="3"> 3: Medium</label> <label><input type="radio" name="ethics_dignity" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="mt-4"> <label for="notesEthics" class="block text-sm font-medium text-gray-700 mb-1">Key Ethical Issues & Safeguard Notes:</label> <textarea id="notesEthics" name="notesEthics" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
                     <div class="dimension-score-display mt-auto"> Dimension Score (Max): <span class="score-value" id="score_ethics">N/A</span> </div>
@@ -377,26 +446,42 @@
              <form class="dimension-form space-y-8">
                 <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="value">
                     <legend class="fieldset-legend">4. Stakeholder Value & Impact</legend>
-                    <p class="dimension-description">The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value.</p>
+                    <p class="dimension-description">The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value. [cite: 123, 486]</p>
                     <div class="question-item">
                         <span class="question-label">Value for Students</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How significantly could AI enhance student learning outcomes, engagement, access to resources, support services, or overall educational experience? [cite: 126, 486]</span>
+                        </span>
                         <p class="question-description">How significantly could AI enhance student learning outcomes, engagement, access to resources, support services, or overall educational experience?</p>
-                        <div class="scale-container"> <label><input type="radio" name="value_student" value="1" required> Low</label> <label><input type="radio" name="value_student" value="3"> Medium</label> <label><input type="radio" name="value_student" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="value_student" value="1" required> 1: Low</label> <label><input type="radio" name="value_student" value="2"> 2: Some</label> <label><input type="radio" name="value_student" value="3"> 3: Moderate</label> <label><input type="radio" name="value_student" value="4"> 4: Significant</label> <label><input type="radio" name="value_student" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Value for Staff (Faculty/Admin/Etc.)</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How significantly could AI reduce tedious workload, free up time for higher-value activities (mentoring, research), or enhance staff capabilities and job satisfaction? [cite: 127, 487]</span>
+                        </span>
                         <p class="question-description">How significantly could AI reduce tedious workload, free up time for higher-value activities (mentoring, research), or enhance staff capabilities and job satisfaction?</p>
-                        <div class="scale-container"> <label><input type="radio" name="value_staff" value="1" required> Low</label> <label><input type="radio" name="value_staff" value="3"> Medium</label> <label><input type="radio" name="value_staff" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="value_staff" value="1" required> 1: Low</label> <label><input type="radio" name="value_staff" value="2"> 2: Some</label> <label><input type="radio" name="value_staff" value="3"> 3: Moderate</label> <label><input type="radio" name="value_staff" value="4"> 4: Significant</label> <label><input type="radio" name="value_staff" value="5" required> 5: High</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Value for Institution</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How significantly could AI improve operational efficiency, reduce costs, enhance decision-making, boost research output, or advance strategic goals? [cite: 128, 488]</span>
+                        </span>
                         <p class="question-description">How significantly could AI improve operational efficiency, reduce costs, enhance decision-making, boost research output, or advance strategic goals?</p>
-                        <div class="scale-container"> <label><input type="radio" name="value_institution" value="1" required> Low</label> <label><input type="radio" name="value_institution" value="3"> Medium</label> <label><input type="radio" name="value_institution" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="value_institution" value="1" required> 1: Low</label> <label><input type="radio" name="value_institution" value="2"> 2: Some</label> <label><input type="radio" name="value_institution" value="3"> 3: Moderate</label> <label><input type="radio" name="value_institution" value="4"> 4: Significant</label> <label><input type="radio" name="value_institution" value="5" required> 5: High</label> </div>
                     </div>
                      <div class="question-item">
                         <span class="question-label">Alignment with Mission/Strategic Goals</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How well does using AI for this task align with the institution's core mission, values, and long-term strategic objectives? [cite: 149, 488]</span>
+                        </span>
                         <p class="question-description">How well does using AI for this task align with the institution's core mission, values, and long-term strategic objectives?</p>
-                        <div class="scale-container"> <label><input type="radio" name="value_alignment" value="1" required> Poor Alignment</label> <label><input type="radio" name="value_alignment" value="3"> Neutral/Moderate</label> <label><input type="radio" name="value_alignment" value="5" required> Strong Alignment</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="value_alignment" value="1" required> 1: Poor Alignment</label> <label><input type="radio" name="value_alignment" value="2"> 2: Limited Alignment</label> <label><input type="radio" name="value_alignment" value="3"> 3: Neutral/Moderate</label> <label><input type="radio" name="value_alignment" value="4"> 4: Good Alignment</label> <label><input type="radio" name="value_alignment" value="5" required> 5: Strong Alignment</label> </div>
                     </div>
                     <div id="stakeholderPrompts" class="hidden"></div>
                     <div class="mt-4"> <label id="notesValueLabel" for="notesValue" class="block text-sm font-medium text-gray-700 mb-1">Key Impacts (Positive/Negative) & Stakeholder Notes:</label> <textarea id="notesValue" name="notesValue" rows="3" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
@@ -418,26 +503,42 @@
              <form class="dimension-form space-y-8">
                  <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="human">
                     <legend class="fieldset-legend">5. Human Element Requirement</legend>
-                    <p class="dimension-description">The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement.</p>
+                    <p class="dimension-description">The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement. [cite: 157, 490]</p>
                     <div class="question-item">
                         <span class="question-label">Need for Empathy & Interpersonal Skills</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How crucial are understanding emotions, showing compassion, and navigating complex interpersonal dynamics for this task? (High requirement favours Human-Led) [cite: 160, 490]</span>
+                        </span>
                         <p class="question-description">How crucial are understanding emotions, showing compassion, and navigating complex interpersonal dynamics for this task?</p>
-                        <div class="scale-container"> <label><input type="radio" name="human_empathy" value="1" required> Minimal</label> <label><input type="radio" name="human_empathy" value="2"> Beneficial</label> <label><input type="radio" name="human_empathy" value="3"> Important</label> <label><input type="radio" name="human_empathy" value="4" required> Essential</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="human_empathy" value="1" required> 1: Minimal</label> <label><input type="radio" name="human_empathy" value="2"> 2: Beneficial</label> <label><input type="radio" name="human_empathy" value="3"> 3: Important</label> <label><input type="radio" name="human_empathy" value="4" required> 4: Essential</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Need for Mentorship & Guidance</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Does the task involve personalized coaching, fostering critical thinking, inspiring others, or providing tailored developmental support? (High requirement favours Human-Led or highly sophisticated AI-Assist) [cite: 161, 491]</span>
+                        </span>
                         <p class="question-description">Does the task involve personalized coaching, fostering critical thinking, inspiring others, or providing tailored developmental support?</p>
-                        <div class="scale-container"> <label><input type="radio" name="human_mentorship" value="1" required> Minimal</label> <label><input type="radio" name="human_mentorship" value="2"> Beneficial</label> <label><input type="radio" name="human_mentorship" value="3"> Important</label> <label><input type="radio" name="human_mentorship" value="4" required> Essential</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="human_mentorship" value="1" required> 1: Minimal</label> <label><input type="radio" name="human_mentorship" value="2"> 2: Beneficial</label> <label><input type="radio" name="human_mentorship" value="3"> 3: Important</label> <label><input type="radio" name="human_mentorship" value="4" required> 4: Essential</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Need for Nuanced Judgment & Contextual Understanding</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How much does the task require interpreting subtle cues, understanding complex situations, making subjective judgments, or adapting to unique contexts? (Human judgment should lead if not rule-based) [cite: 165, 168]</span>
+                        </span>
                         <p class="question-description">How much does the task require interpreting subtle cues, understanding complex situations, making subjective judgments, or adapting to unique contexts?</p>
-                        <div class="scale-container"> <label><input type="radio" name="human_judgment" value="1" required> Minimal</label> <label><input type="radio" name="human_judgment" value="2"> Beneficial</label> <label><input type="radio" name="human_judgment" value="3"> Important</label> <label><input type="radio" name="human_judgment" value="4" required> Essential</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="human_judgment" value="1" required> 1: Minimal</label> <label><input type="radio" name="human_judgment" value="2"> 2: Beneficial</label> <label><input type="radio" name="human_judgment" value="3"> 3: Important</label> <label><input type="radio" name="human_judgment" value="4" required> 4: Essential</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Need for High-Stakes or Sensitive Communication</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Does the task involve delivering difficult news, handling conflicts, engaging in persuasive dialogue, or building trust through communication? (Favours Human-Led) [cite: 161, 492]</span>
+                        </span>
                          <p class="question-description">Does the task involve delivering difficult news, handling conflicts, engaging in persuasive dialogue, or building trust through communication?</p>
-                        <div class="scale-container"> <label><input type="radio" name="human_communication" value="1" required> Minimal</label> <label><input type="radio" name="human_communication" value="2"> Beneficial</label> <label><input type="radio" name="human_communication" value="3"> Important</label> <label><input type="radio" name="human_communication" value="4" required> Essential</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="human_communication" value="1" required> 1: Minimal</label> <label><input type="radio" name="human_communication" value="2"> 2: Beneficial</label> <label><input type="radio" name="human_communication" value="3"> 3: Important</label> <label><input type="radio" name="human_communication" value="4" required> 4: Essential</label> </div>
                     </div>
                     <div class="mt-4"> <label for="notesHuman" class="block text-sm font-medium text-gray-700 mb-1">Notes/Rationale:</label> <textarea id="notesHuman" name="notesHuman" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
                     <div class="dimension-score-display mt-auto"> Dimension Score (Max): <span class="score-value" id="score_human">N/A</span> </div>
@@ -457,26 +558,42 @@
             <div class="progress-indicator">Step 7 of 9: Dimension 6 - Feasibility & Implementation</div>
              <form id="evaluationForm" class="dimension-form space-y-8"> <fieldset class="border border-gray-300 p-5 rounded-md flex flex-col" data-dimension="feasibility">
                     <legend class="fieldset-legend">6. Feasibility & Implementation</legend>
-                    <p class="dimension-description">The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility.</p>
+                    <p class="dimension-description">The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility. [cite: 194, 494]</p>
                     <div class="question-item">
                         <span class="question-label">Technology Maturity & Reliability</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How proven, stable, and reliable is the required AI technology for this specific application context? (Proven solutions make adoption easier) [cite: 197, 494]</span>
+                        </span>
                         <p class="question-description">How proven, stable, and reliable is the required AI technology for this specific application context?</p>
-                        <div class="scale-container"> <label><input type="radio" name="feasibility_tech" value="1" required> Low</label> <label><input type="radio" name="feasibility_tech" value="3"> Medium</label> <label><input type="radio" name="feasibility_tech" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="feasibility_tech" value="1" required> 1: Low</label> <label><input type="radio" name="feasibility_tech" value="2"> 2: Emerging/Uncertain</label> <label><input type="radio" name="feasibility_tech" value="3"> 3: Available but Niche</label> <label><input type="radio" name="feasibility_tech" value="4"> 4: Available and Proven</label> <label><input type="radio" name="feasibility_tech" value="5" required> 5: Mature and Reliable</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Data Availability, Quality & Appropriateness</span>
+                        <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Is sufficient, high-quality, relevant, and appropriately unbiased data readily available to train and operate the AI effectively? [cite: 201, 495]</span>
+                        </span>
                         <p class="question-description">Is sufficient, high-quality, relevant, and appropriately unbiased data readily available to train and operate the AI effectively?</p>
-                        <div class="scale-container"> <label><input type="radio" name="feasibility_data" value="1" required> Low</label> <label><input type="radio" name="feasibility_data" value="3"> Medium</label> <label><input type="radio" name="feasibility_data" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="feasibility_data" value="1" required> 1: Low</label> <label><input type="radio" name="feasibility_data" value="2"> 2: Requires Significant Effort</label> <label><input type="radio" name="feasibility_data" value="3"> 3: Available but Needs Prep</label> <label><input type="radio" name="feasibility_data" value="4"> 4: Mostly Available/Clean</label> <label><input type="radio" name="feasibility_data" value="5" required> 5: Readily Available/High Quality</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Cost-Effectiveness & Resource Availability</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">Are the expected benefits (efficiency, cost savings, etc.) likely to justify the financial, personnel, and infrastructure costs of implementation and maintenance? (ROI justification needed) [cite: 206, 496]</span>
+                        </span>
                         <p class="question-description">Are the expected benefits (efficiency, cost savings, etc.) likely to justify the financial, personnel, and infrastructure costs of implementation and maintenance?</p>
-                        <div class="scale-container"> <label><input type="radio" name="feasibility_cost" value="1" required> Low</label> <label><input type="radio" name="feasibility_cost" value="3"> Medium</label> <label><input type="radio" name="feasibility_cost" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="feasibility_cost" value="1" required> 1: Low ROI / High Cost</label> <label><input type="radio" name="feasibility_cost" value="2"> 2: Uncertain ROI / Moderate Cost</label> <label><input type="radio" name="feasibility_cost" value="3"> 3: Neutral / Costs Balanced by Benefits</label> <label><input type="radio" name="feasibility_cost" value="4"> 4: Good ROI / Manageable Cost</label> <label><input type="radio" name="feasibility_cost" value="5" required> 5: High ROI / Low Cost</label> </div>
                     </div>
                     <div class="question-item">
                         <span class="question-label">Integration & Policy Alignment</span>
+                         <span class="info-icon-container">
+                           <i class="fas fa-info-circle info-icon"></i>
+                           <span class="info-tooltip">How easily can the AI be integrated with existing systems? Does it align with current institutional policies, regulations, and governance structures? [cite: 200, 498]</span>
+                        </span>
                         <p class="question-description">How easily can the AI be integrated with existing systems? Does it align with current institutional policies, regulations, and governance structures?</p>
-                        <div class="scale-container"> <label><input type="radio" name="feasibility_integration" value="1" required> Low</label> <label><input type="radio" name="feasibility_integration" value="3"> Medium</label> <label><input type="radio" name="feasibility_integration" value="5" required> High</label> </div>
+                        <div class="scale-container"> <label><input type="radio" name="feasibility_integration" value="1" required> 1: Difficult Integration / Policy Conflicts</label> <label><input type="radio" name="feasibility_integration" value="2"> 2: Requires Major Changes</label> <label><input type="radio" name="feasibility_integration" value="3"> 3: Possible with Some Work</label> <label><input type="radio" name="feasibility_integration" value="4"> 4: Relatively Easy Integration</label> <label><input type="radio" name="feasibility_integration" value="5" required> 5: Seamless Integration / Aligned Policy</label> </div>
                     </div>
                     <div class="mt-4"> <label for="notesFeasibility" class="block text-sm font-medium text-gray-700 mb-1">Key Barriers & Resource Notes:</label> <textarea id="notesFeasibility" name="notesFeasibility" rows="2" class="w-full p-2 border border-gray-300 rounded-md shadow-sm"></textarea> </div>
                     <div class="dimension-score-display mt-auto"> Dimension Score (Avg): <span class="score-value" id="score_feasibility">N/A</span> </div>
@@ -501,7 +618,6 @@
                      <p id="resultDisclaimer" class="text-sm text-gray-600 mt-4 italic"></p>
                  </div>
 
-                 <!-- Radar Chart Container -->
                  <div id="radarChartContainer">
                      <canvas id="myRadarChart"></canvas>
                  </div>
@@ -559,14 +675,14 @@
         let currentResultData = null;
         // Store calculated dimension scores
         let dimensionScores = { nature: null, risk: null, ethics: null, value: null, human: null, feasibility: null };
-        // Store dimension descriptions
+        // Store dimension descriptions (expanded with more detail for PDF/tooltip)
         const dimensionDescriptions = {
-             nature: "The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation.",
-             risk: "Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk.",
-             ethics: "Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern.",
-             value: "The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value.",
-             human: "The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement.",
-             feasibility: "The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility."
+             nature: "The inherent characteristics of the task itself, such as how repetitive, data-driven, or creative it is. This helps determine its baseline suitability for automation. It considers Repetitiveness, Cognitive Load, Data Dependence, and Determinism vs. Ambiguity.",
+             risk: "Potential negative consequences of using AI for this task, including data breaches, bias, safety issues, and damage to integrity or reputation. Higher scores indicate greater risk. It considers Data Privacy & Security, Algorithmic Bias, Safety & Well-being, and Operational & Reputational Risk.",
+             ethics: "Alignment with ethical principles like fairness, transparency, accountability, and respect for human autonomy. Higher scores indicate greater ethical concern. It considers Fairness & Equity, Transparency & Explainability, Accountability & Responsibility, and Human Dignity & Autonomy.",
+             value: "The potential benefits and positive effects of using AI on key groups (students, staff, institution). Higher scores indicate greater potential value. It considers Value for Students, Value for Staff, Value for Institution, and Alignment with Mission/Strategic Goals.",
+             human: "The degree to which inherently human skills like empathy, nuanced judgment, mentorship, and complex communication are essential for the task's success. Higher scores indicate greater need for human involvement. It considers Empathy & Interpersonal Skills, Mentorship & Guidance, Nuanced Judgment & Contextual Understanding, and High-Stakes or Sensitive Communication.",
+             feasibility: "The practical and logistical aspects of implementing AI for this task, including technology readiness, data availability, cost, required skills, and policy alignment. Higher scores indicate greater feasibility. It considers Technology Maturity & Reliability, Data Availability, Quality & Appropriateness, Cost-Effectiveness & Resource Availability, and Integration & Policy Alignment."
         };
 
         // --- Navigation Logic ---
@@ -581,7 +697,9 @@
                      // Update text dynamically if needed, or ensure it's correct in HTML
                      const pageIndex = pageToShow.dataset.pageIndex;
                      if (pageIndex) {
-                        progressIndicator.textContent = `Step ${pageIndex} of 9: ${progressIndicator.textContent.split(': ')[1]}`; // Update step number
+                        const totalSteps = 9; // Total number of steps
+                        const stepName = progressIndicator.textContent.split(': ')[1]; // Keep the name part
+                        progressIndicator.textContent = Step ${pageIndex} of ${totalSteps}: ${stepName}; // Update step number and total
                      }
                  }
                  // If navigating away from results, destroy the chart
@@ -625,11 +743,11 @@
                         // Get unique names (for each question)
                         const names = [...new Set(Array.from(radios).map(r => r.name))];
                         // Check if there is a checked radio for each unique name
-                        const allAnswered = names.every(name => dimensionFieldset.querySelector(`input[name="${name}"]:checked`));
+                        const allAnswered = names.every(name => dimensionFieldset.querySelector(input[name="${name}"]:checked));
 
                         if (!allAnswered) {
                            const dimensionNumber = currentPage.dataset.pageIndex - 1; // Get dimension number (2-7 -> 1-6)
-                           alert(`Please answer all questions for Dimension ${dimensionNumber} before proceeding.`);
+                           alert(Please answer all questions for Dimension ${dimensionNumber} before proceeding.);
                            const firstUnansweredRadio = dimensionFieldset.querySelector('input[type="radio"]:not(:checked)'); // Find first unanswered
                            if(firstUnansweredRadio) {
                                firstUnansweredRadio.focus();
@@ -647,33 +765,34 @@
 
         // --- Helper Functions ---
         function getRadioValue(name) {
-             const radio = document.querySelector(`.page input[name="${name}"]:checked`);
+             const radio = document.querySelector(.page input[name="${name}"]:checked);
             return radio ? parseInt(radio.value) : null;
         }
         function getRadioLabel(name) {
-             const radio = document.querySelector(`.page input[name="${name}"]:checked`);
-             return radio ? radio.closest('label').textContent.trim() : 'N/A';
+             const radio = document.querySelector(.page input[name="${name}"]:checked);
+             // Return the text content of the label associated with the checked radio
+             return radio ? radio.parentElement.textContent.replace(${radio.value}: ', '').trim() : 'N/A';
         }
         function getDimensionQuestionData(dimensionName) {
             const questions = {};
-            const dimensionPageId = `evaluationPage_${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)}`;
+            const dimensionPageId = evaluationPage_${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)};
             const dimensionPage = document.getElementById(dimensionPageId);
             if (!dimensionPage) return questions;
 
-            const inputs = dimensionPage.querySelectorAll(`fieldset[data-dimension="${dimensionName}"] input[type="radio"]`);
+            const inputs = dimensionPage.querySelectorAll(fieldset[data-dimension="${dimensionName}"] input[type="radio"]);
             const uniqueNames = [...new Set(Array.from(inputs).map(input => input.name))];
             uniqueNames.forEach(name => {
                 const value = getRadioValue(name);
                 const label = getRadioLabel(name);
                 const questionKey = name.split('_').slice(1).join('_');
-                 const descElement = dimensionPage.querySelector(`input[name="${name}"]`)?.closest('.question-item')?.querySelector('.question-description');
+                 const descElement = dimensionPage.querySelector(input[name="${name}"])?.closest('.question-item')?.querySelector('.question-description');
                  const description = descElement ? descElement.textContent.trim() : '';
                 questions[questionKey] = { value: value, label: label, description: description };
             });
             return questions;
         }
          function getNotesForDimension(dimensionName) {
-             const notesTextArea = document.getElementById(`notes${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)}`);
+             const notesTextArea = document.getElementById(notes${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)});
              return notesTextArea ? notesTextArea.value.trim() : '';
          }
 
@@ -682,7 +801,7 @@
             taskIdentificationForm.querySelectorAll('input[name="stakeholder"]:checked').forEach(checkbox => {
                 if (checkbox.value === 'Other') {
                     const otherText = otherStakeholderInput.value.trim();
-                    selected.push(otherText ? `Other (${otherText})` : 'Other (Not specified)');
+                    selected.push(otherText ? Other (${otherText}) : 'Other (Not specified)');
                 } else {
                     selected.push(checkbox.value);
                 }
@@ -708,10 +827,10 @@
                          case 'Admin Staff': prompt = 'How might this impact administrative efficiency, processes, required skills, or staffing levels?'; break;
                          case 'IT Staff': prompt = 'What are the implications for IT infrastructure, support, security, and data management?'; break;
                          case 'Researchers': prompt = 'How might this affect research methodologies, data analysis capabilities, or collaboration?'; break;
-                         case 'Other': prompt = `Consider the specific impacts on the 'Other' group: ${otherStakeholderInput.value.trim() || '(Not specified)'}.`; break;
+                         case 'Other': prompt = Consider the specific impacts on the 'Other' group: ${otherStakeholderInput.value.trim() || '(Not specified)'}.; break;
                      }
                      if (prompt) {
-                         promptsHTML += `<li><strong>${baseStakeholder}:</strong> ${prompt}</li>`;
+                         promptsHTML += <li><strong>${baseStakeholder}:</strong> ${prompt}</li>;
                          specificPrompts.push(baseStakeholder);
                      }
                  });
@@ -721,7 +840,7 @@
                     stakeholderPromptsDiv.classList.remove('hidden');
                  }
                  if (notesValueLabel) {
-                    notesValueLabel.textContent = `${baseNotesLabel} (Focusing on: ${specificPrompts.join(', ')})`;
+                    notesValueLabel.textContent = ${baseNotesLabel} (Focusing on: ${specificPrompts.join(', ')});
                  }
              } else {
                  if (stakeholderPromptsDiv) {
@@ -739,14 +858,15 @@
         function calculateRiskScore() { const scores = [getRadioValue('risk_privacy'), getRadioValue('risk_bias'), getRadioValue('risk_safety'), getRadioValue('risk_operational')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); }
         function calculateEthicsScore() { const scores = [getRadioValue('ethics_fairness'), getRadioValue('ethics_transparency'), getRadioValue('ethics_accountability'), getRadioValue('ethics_dignity')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); }
         function calculateValueScore() { const scores = [getRadioValue('value_student'), getRadioValue('value_staff'), getRadioValue('value_institution'), getRadioValue('value_alignment')]; if (scores.some(s => s === null)) return null; const avg = scores.reduce((a, b) => a + b, 0) / scores.length; return parseFloat(avg.toFixed(2)); }
-        function calculateHumanScore() { const scores = [getRadioValue('human_empathy'), getRadioValue('human_mentorship'), getRadioValue('human_judgment'), getRadioValue('human_communication')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); } // Note: Human scale is 1-4, but we'll plot on a 1-5 scale for consistency
+        // Human scale is 1-4, Risk/Ethics/Human use Max score, others use Avg. Mapping Human 1-4 to 1-5 for chart: 1->1, 2->2.66, 3->3.33, 4->5 (Linear scaling) OR just use the max score directly which seems simpler for the heuristic. Let's stick to Max for heuristic as it's already implemented.
+        function calculateHumanScore() { const scores = [getRadioValue('human_empathy'), getRadioValue('human_mentorship'), getRadioValue('human_judgment'), getRadioValue('human_communication')]; if (scores.some(s => s === null)) return null; return Math.max(...scores); }
         function calculateFeasibilityScore() { const scores = [getRadioValue('feasibility_tech'), getRadioValue('feasibility_data'), getRadioValue('feasibility_cost'), getRadioValue('feasibility_integration')]; if (scores.some(s => s === null)) return null; const avg = scores.reduce((a, b) => a + b, 0) / scores.length; return parseFloat(avg.toFixed(2)); }
 
         // --- Update Dimension Score Display ---
         function updateScoreDisplay(dimensionName, score) {
-            const scoreElement = document.querySelector(`#score_${dimensionName}`);
+            const scoreElement = document.querySelector(#score_${dimensionName});
             if (scoreElement) {
-                scoreElement.textContent = score !== null ? score : 'N/A';
+                scoreElement.textContent = score !== null ? score.toFixed(2) : 'N/A'; // Display with 2 decimal places
             }
         }
 
@@ -762,23 +882,37 @@
 
             const ctx = canvasElement.getContext('2d');
 
-             // Map scores to array order
+             // Map scores to array order for chart.
+             // Nature, Value, Feasibility are Avg scores (1-5)
+             // Risk, Ethics, Human are Max scores (Risk/Ethics 1-5, Human 1-4)
+             // For the chart, we need all points on a comparable scale (e.g., 1-5).
+             // Human scores need scaling from 1-4 to 1-5 for visual consistency on the radar chart.
+             // Scale 1-4 to 1-5: (score - 1) * (5-1) / (4-1) + 1 = (score - 1) * 4 / 3 + 1
+             const scaledHumanScore = scores.human !== null ? ((scores.human - 1) * 4 / 3 + 1) : null;
+
+
              const dataPoints = [
                  scores.nature,
                  scores.risk,
                  scores.ethics,
                  scores.value,
-                 scores.human,
+                 scaledHumanScore, // Use scaled human score for chart
                  scores.feasibility
              ];
+
+             // Filter out null data points and corresponding labels for chart rendering
+             const chartLabels = ['Nature', 'Risk', 'Ethics', 'Value', 'Human', 'Feasibility'];
+             const filteredDataPoints = dataPoints.filter(score => score !== null);
+             const filteredLabels = chartLabels.filter((label, index) => dataPoints[index] !== null);
+
 
             myRadarChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['Nature', 'Risk', 'Ethics', 'Value', 'Human', 'Feasibility'], // Dimension names
+                    labels: filteredLabels, // Use filtered labels
                     datasets: [{
                         label: 'Evaluation Score',
-                        data: dataPoints,
+                        data: filteredDataPoints, // Use filtered data points
                         backgroundColor: 'rgba(59, 130, 246, 0.2)', // Blue with transparency
                         borderColor: 'rgba(59, 130, 246, 1)', // Solid blue border
                         pointBackgroundColor: 'rgba(59, 130, 246, 1)',
@@ -842,7 +976,7 @@
                 const fieldset = event.target.closest('fieldset[data-dimension]');
                 const dimensionName = fieldset.dataset.dimension;
                 let score = null;
-                const functionName = `calculate${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)}Score`;
+                const functionName = calculate${dimensionName.charAt(0).toUpperCase() + dimensionName.slice(1)}Score;
                 if (typeof window[functionName] === 'function') { score = window[functionName](); }
                 dimensionScores[dimensionName] = score;
                 updateScoreDisplay(dimensionName, score);
@@ -871,7 +1005,7 @@
 
             // Recalculate all scores
             Object.keys(dimensionScores).forEach(dim => {
-                 const functionName = `calculate${dim.charAt(0).toUpperCase() + dim.slice(1)}Score`;
+                 const functionName = calculate${dim.charAt(0).toUpperCase() + dim.slice(1)}Score;
                  if (typeof window[functionName] === 'function') { dimensionScores[dim] = window[functionName](); }
             });
 
@@ -883,65 +1017,57 @@
             }
 
             // --- Heuristic Logic ---
-             // Note: Thresholds are based on the 1-5 scale, except Human (1-4)
-            const HIGH_RISK_THRESHOLD = 4; // Max score 5
-            const MEDIUM_RISK_THRESHOLD = 2.5; // Max score 5
-            const HIGH_ETHICS_THRESHOLD = 4; // Max score 5
-            const MEDIUM_ETHICS_THRESHOLD = 2.5; // Max score 5
-            const ESSENTIAL_HUMAN_THRESHOLD = 3.5; // Max score 4 -> 3.5 is high end
-            const IMPORTANT_HUMAN_THRESHOLD = 2.5; // Max score 4 -> 2.5 is mid-range
-            const HIGH_FEASIBILITY_THRESHOLD = 4; // Avg score 1-5
-            const LOW_FEASIBILITY_THRESHOLD = 2; // Avg score 1-5
-            const MEDIUM_VALUE_THRESHOLD = 2.5; // Avg score 1-5
-            const LOW_AUTOMATABILITY_THRESHOLD = 2.5; // Avg score 1-5 (Nature score inverted logic)
+             // Note: Thresholds for Risk, Ethics, Human are based on Max score, others on Avg.
+            const HIGH_RISK_THRESHOLD = 4; // Max score from 1-5
+            const MEDIUM_RISK_THRESHOLD = 2.5; // Max score from 1-5
+            const HIGH_ETHICS_THRESHOLD = 4; // Max score from 1-5
+            const MEDIUM_ETHICS_THRESHOLD = 2.5; // Max score from 1-5
+            const ESSENTIAL_HUMAN_THRESHOLD = 4; // Max score from 1-4
+            const IMPORTANT_HUMAN_THRESHOLD = 3; // Max score from 1-4
+            const HIGH_FEASIBILITY_THRESHOLD = 4; // Avg score from 1-5
+            const LOW_FEASIBILITY_THRESHOLD = 2; // Avg score from 1-5
+            const MEDIUM_VALUE_THRESHOLD = 2.5; // Avg score from 1-5
+            const HIGH_AUTOMATABILITY_NATURE_THRESHOLD = 3; // Avg score from 1-5 (Higher score = more repetitive/deterministic etc.)
+
 
             let suggestedCategory = "Undetermined";
             let rationale = "";
             let categoryClass = "result-default";
 
-            // Logic refinement:
-            // 1. High Risk/Ethics OR Essential Human -> Human-Led
-            // 2. Moderate Risk/Ethics OR Important Human -> AI-Assisted (Human Control)
-            // 3. Otherwise (Low Risk/Ethics, Minimal/Beneficial Human):
-            //    a. High Feasibility & Good Value & Suitable Nature & Minimal/Beneficial Human -> Full Automation
-            //    b. High Feasibility & Good Value & Suitable Nature & Important Human -> High Automation Potential (Human Supervising)
-            //    c. High Feasibility & Good Value BUT Unsuitable Nature -> AI-Assisted (Human Control)
-            //    d. Any other case (e.g., Low Feasibility, Low Value) -> AI-Assisted (Human Control)
+            // Logic refinement based on typical interpretation of the categories:
+            // 1. Human-Led: Highest Risk, Ethics, or Essential Human need.
+            // 2. AI-Assisted: Moderate Risk/Ethics, Important Human need, OR lower Feasibility/Value/Nature suitability when other factors are high.
+            // 3. High Automation Potential: Lower Risk/Ethics/Human need, high Feasibility/Value/Nature suitability, but still benefits from supervision (e.g., due to edge cases).
+            // 4. Full Automation: Lowest Risk/Ethics/Human need, highest Feasibility/Value/Nature suitability, highly structured/deterministic tasks.
 
             if (dimensionScores.risk >= HIGH_RISK_THRESHOLD || dimensionScores.ethics >= HIGH_ETHICS_THRESHOLD || dimensionScores.human >= ESSENTIAL_HUMAN_THRESHOLD) {
                 suggestedCategory = "Human-Led (No/Minimal AI)";
-                rationale = `High risk (Score ${dimensionScores.risk}), significant ethical concerns (Score ${dimensionScores.ethics}), or essential human element requirement (Score ${dimensionScores.human}) strongly suggest minimal to no AI involvement.`;
+                rationale = Based on a high score in Risk (${dimensionScores.risk}), Ethics (${dimensionScores.ethics}), or Human Element Requirement (${dimensionScores.human}), this task is best kept human-led due to significant concerns or the critical need for human judgment/empathy.;
                 categoryClass = "result-human-led";
-            } else if (dimensionScores.risk >= MEDIUM_RISK_THRESHOLD || dimensionScores.ethics >= MEDIUM_ETHICS_THRESHOLD || dimensionScores.human >= IMPORTANT_HUMAN_THRESHOLD) {
+            } else if (dimensionScores.risk >= MEDIUM_RISK_THRESHOLD || dimensionScores.ethics >= MEDIUM_ETHICS_THRESHOLD || dimensionScores.human >= IMPORTANT_HUMAN_THRESHOLD || dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD || dimensionScores.value <= MEDIUM_VALUE_THRESHOLD || dimensionScores.nature <= HIGH_AUTOMATABILITY_NATURE_THRESHOLD ) {
+                 // This block catches moderate concerns or lower feasibility/value/nature suitability
                 suggestedCategory = "AI-Assisted (Human in Control)";
-                rationale = `Moderate risk (Score ${dimensionScores.risk}), moderate ethical concerns (Score ${dimensionScores.ethics}), or important human element requirement (Score ${dimensionScores.human}) indicate AI could assist, but requires significant human oversight and control.`;
+                rationale = Moderate scores in Risk (${dimensionScores.risk}), Ethics (${dimensionScores.ethics}), or Human Element (${dimensionScores.human}), or factors like lower Feasibility (${dimensionScores.feasibility}), Value (${dimensionScores.value}), or Task Nature Suitability (${dimensionScores.nature}) suggest AI could assist, but requires significant human oversight and control.;
                 categoryClass = "result-ai-assisted";
-                 if (dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD) { rationale += " Low feasibility (Score ${dimensionScores.feasibility}) further limits the scope for automation."; }
-            }
-            else if (dimensionScores.feasibility >= HIGH_FEASIBILITY_THRESHOLD && dimensionScores.value >= MEDIUM_VALUE_THRESHOLD) {
-                // Lower Nature score implies less routine/more complex, less automatable for full automation
-                 if (dimensionScores.nature > LOW_AUTOMATABILITY_THRESHOLD) { // Nature score > 2.5 means it's leaning towards repetitive/rule-following/structured data/deterministic (more automatable)
-                      if (dimensionScores.human < IMPORTANT_HUMAN_THRESHOLD) { // Human score < 2.5 means minimal/beneficial human element
-                         suggestedCategory = "Full Automation (Minimal Oversight Post-Setup)";
-                         rationale = `Low risk/ethics/human need, combined with high feasibility (Score ${dimensionScores.feasibility}), good value (Score ${dimensionScores.value}) and suitable task nature (Score ${dimensionScores.nature} > ${LOW_AUTOMATABILITY_THRESHOLD}), points towards potential full automation.`;
-                         categoryClass = "result-full-automation";
-                      } else { // Human score >= 2.5 means important human element
-                         suggestedCategory = "High Automation Potential (Human Supervising)";
-                         rationale = `Low risk/ethics, high feasibility (Score ${dimensionScores.feasibility}), good value (Score ${dimensionScores.value}) and suitable task nature (Score ${dimensionScores.nature} > ${LOW_AUTOMATABILITY_THRESHOLD}) suggest significant automation potential, but human supervision is needed due to an important human element requirement (Score ${dimensionScores.human}).`;
-                         categoryClass = "result-high-automation";
-                      }
-                  } else { // Nature score <= 2.5 means it's leaning towards variable/judgmental/qualitative/ambiguous (less automatable)
-                       suggestedCategory = "AI-Assisted (Human in Control)";
-                       rationale = `Although risk/ethics/human factors are low and feasibility/value are high, the task nature (Score ${dimensionScores.nature} <= ${LOW_AUTOMATABILITY_THRESHOLD}) suggests human judgment or adaptation is still valuable, making AI assistance with human control more appropriate than full automation.`;
-                       categoryClass = "result-ai-assisted";
+                 if (dimensionScores.feasibility <= LOW_FEASIBILITY_THRESHOLD) { rationale += " Low feasibility further limits automation potential."; }
+             } else if (dimensionScores.nature > HIGH_AUTOMATABILITY_NATURE_THRESHOLD && dimensionScores.feasibility >= HIGH_FEASIBILITY_THRESHOLD && dimensionScores.value >= MEDIUM_VALUE_THRESHOLD) {
+                 // Catch tasks suitable for automation where the above didn't trigger Human-Led or AI-Assisted directly
+                  if (dimensionScores.human < IMPORTANT_HUMAN_THRESHOLD && dimensionScores.risk < MEDIUM_RISK_THRESHOLD && dimensionScores.ethics < MEDIUM_ETHICS_THRESHOLD) {
+                     suggestedCategory = "High Automation Potential (Human Supervising)";
+                     rationale = Low risk/ethics/human scores, combined with high feasibility (${dimensionScores.feasibility}), good value (${dimensionScores.value}), and suitable task nature (${dimensionScores.nature}), indicate significant automation potential. Human supervision is recommended for oversight and exception handling.;
+                     categoryClass = "result-high-automation";
+                  } else {
+                       // If it reached here, despite good nature/feasibility/value, there are still some lingering moderate risk/ethics/human concerns.
+                        suggestedCategory = "AI-Assisted (Human in Control)";
+                        rationale = While feasibility, value, and task nature are favorable for automation, remaining moderate concerns in Risk (${dimensionScores.risk}), Ethics (${dimensionScores.ethics}), or Human Element (${dimensionScores.human}) suggest AI assistance with human control is the most appropriate approach.;
+                        categoryClass = "result-ai-assisted";
                   }
-             }
+            }
              else {
-                  // Fallback/default for cases that don't fit the above clear thresholds
-                  // This captures moderate feasibility, lower value, or mixed factors
-                  suggestedCategory = "AI-Assisted (Human in Control)";
-                  rationale = "Based on the overall assessment across dimensions, considering factors like moderate feasibility, value, and task complexity, AI assistance with human control appears most suitable.";
-                  categoryClass = "result-ai-assisted";
+                  // The most favorable case: Low risk/ethics/human, High Feasibility/Value, Highly Automatable Nature
+                  suggestedCategory = "Full Automation (Minimal Oversight Post-Setup)";
+                  rationale = Very low scores in Risk (${dimensionScores.risk}), Ethics (${dimensionScores.ethics}), and Human Element Requirement (${dimensionScores.human}), alongside high feasibility (${dimensionScores.feasibility}), good value (${dimensionScores.value}), and a highly automatable task nature (${dimensionScores.nature}), suggest this task is suitable for full automation with minimal human oversight after setup.;
+                  categoryClass = "result-full-automation";
              }
 
 
@@ -960,12 +1086,12 @@
                      feasibility: { score: dimensionScores.feasibility, description: dimensionDescriptions.feasibility, questions: getDimensionQuestionData('feasibility'), notes: getNotesForDimension('feasibility') }
                  },
                  suggestedCategory: suggestedCategory, rationale: rationale,
-                 disclaimer: `Disclaimer: This is a preliminary suggestion based on the calculated scores. A thorough discussion involving relevant stakeholders, considering the detailed notes and context, is crucial for the final decision.`
+                 disclaimer: "Disclaimer: This is a preliminary suggestion based on the calculated scores and the framework's heuristics. A thorough discussion involving relevant stakeholders, considering the detailed notes and context, is crucial for the final decision."
              };
 
             // --- Display Results on Results Page ---
-            resultCategory.textContent = `Suggested Category: ${suggestedCategory}`;
-            resultRationale.textContent = `Rationale: ${rationale}`;
+            resultCategory.textContent = Suggested Category: ${suggestedCategory};
+            resultRationale.textContent = Rationale: ${rationale};
             resultDisclaimer.textContent = currentResultData.disclaimer;
             resultBox.className = ''; // Reset classes
             resultBox.classList.add('resultBox', 'max-w-3xl', 'mx-auto', categoryClass); // Add base and category class
@@ -987,38 +1113,37 @@
             pdfContentDiv.classList.add('pdf-render-area');
 
             // Build the text/HTML part of the PDF content
-            let pdfHTML = `<h1>AI Task Taxonomy Evaluation Report</h1><h2>Task Identification</h2> <p><span class="label">Task Name:</span> ${currentResultData.taskName || 'N/A'}</p> <p><span class="label">Evaluator(s):</span> ${currentResultData.evaluator || 'N/A'}</p> <p><span class="label">Date:</span> ${currentResultData.evalDate || 'N/A'}</p> <p class="stakeholder-list-pdf"><span class="label">Key Stakeholders:</span> ${currentResultData.stakeholders.length > 0 ? currentResultData.stakeholders.join(', ') : 'None selected'}</p>`;
+            let pdfHTML = <h1>AI Task Taxonomy Evaluation Report</h1><h2>Task Identification</h2> <p><span class="label">Task Name:</span> ${currentResultData.taskName || 'N/A'}</p> <p><span class="label">Evaluator(s):</span> ${currentResultData.evaluator || 'N/A'}</p> <p><span class="label">Date:</span> ${currentResultData.evalDate || 'N/A'}</p> <p class="stakeholder-list-pdf"><span class="label">Key Stakeholders:</span> ${currentResultData.stakeholders.length > 0 ? currentResultData.stakeholders.join(', ') : 'None selected'}</p>;
 
              // Add the chart canvas wrapper
-             pdfHTML += `<h2>Dimension Scores Overview</h2><div class="chart-container-pdf"><canvas id="pdfRadarChart"></canvas></div>`;
+             pdfHTML += <h2>Dimension Scores Overview</h2><div class="chart-container-pdf"><canvas id="pdfRadarChart"></canvas></div>;
 
             // Add Dimension Evaluation details
-            pdfHTML += `<h2>Dimension Evaluation Details</h2>`;
+            pdfHTML += <h2>Dimension Evaluation Details</h2>;
             let dimensionIndex = 1;
             const dimensionOrder = ['nature', 'risk', 'ethics', 'value', 'human', 'feasibility']; // Define order for clarity
             for (const key of dimensionOrder) {
                  const data = currentResultData.dimensions[key];
                  const title = key.charAt(0).toUpperCase() + key.slice(1);
-                 pdfHTML += `<h3>${dimensionIndex}. ${title}</h3>`;
-                 pdfHTML += `<p class="dimension-desc-pdf">${data.description || ''}</p>`;
+                 const scoreDisplay = (key === 'nature' || key === 'value' || key === 'feasibility') ? data.score?.toFixed(2) : data.score;
+                 pdfHTML += <h3>${dimensionIndex}. ${title}</h3>;
+                 pdfHTML += <p class="dimension-desc-pdf">${data.description || ''}</p>;
                  // Sort question keys to maintain order if needed, or use existing order
                  const questionKeys = Object.keys(data.questions);
                  for (const qKey of questionKeys) {
                      const qData = data.questions[qKey];
                      const qText = qKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                     pdfHTML += `<div class="question-block">
-                                    <p class="question-text">${qText}:</p>
-                                    ${qData.description ? `<p class="question-desc-pdf">${qData.description}</p>` : ''}
+                     pdfHTML += <div class="question-block">                                    <p class="question-text">${qText}:</p>
+                                    ${qData.description ? <p class="question-desc-pdf">${qData.description}</p> : ''}
                                     <p class="question-answer">${qData.label} (Score: ${qData.value ?? 'N/A'})</p>
-                                 </div>`;
-                 }
-                 pdfHTML += `<p class="notes"><span class="label">Notes:</span> ${data.notes || 'None'}</p>`;
-                 pdfHTML += `<p class="dimension-score-pdf">Overall Dimension Score: ${data.score ?? 'N/A'}</p>`;
+                                 </div>;                 }
+                 pdfHTML += <p class="notes"><span class="label">Notes:</span> ${data.notes || 'None'}</p>;
+                 pdfHTML += <p class="dimension-score-pdf">Overall Dimension Score: ${scoreDisplay ?? 'N/A'}</p>;
                  dimensionIndex++;
             }
 
             // Add the final result section
-            pdfHTML += `<div class="result-section"><h2>Evaluation Result</h2><p class="result-category"><span class="label">Suggested Category:</span> ${currentResultData.suggestedCategory}</p><p class="result-rationale"><span class="label">Rationale:</span> ${currentResultData.rationale}</p><p class="result-disclaimer">${currentResultData.disclaimer}</p></div>`;
+            pdfHTML += <div class="result-section"><h2>Evaluation Result</h2><p class="result-category"><span class="label">Suggested Category:</span> ${currentResultData.suggestedCategory}</p><p class="result-rationale"><span class="label">Rationale:</span> ${currentResultData.rationale}</p><p class="result-disclaimer">${currentResultData.disclaimer}</p></div>;
 
             // Set the HTML content of the hidden PDF rendering area
             pdfContentDiv.innerHTML = pdfHTML;
@@ -1033,20 +1158,24 @@
                  currentResultData.dimensions.risk.score,
                  currentResultData.dimensions.ethics.score,
                  currentResultData.dimensions.value.score,
-                 currentResultData.dimensions.human.score,
+                 currentResultData.dimensions.human.score, // Use original score for scaling logic
                  currentResultData.dimensions.feasibility.score
              ];
+
+             // Scale Human score for PDF chart as well
+             const scaledHumanScorePdf = scoresArray[4] !== null ? ((scoresArray[4] - 1) * 4 / 3 + 1) : null;
+
              renderRadarChart({
                  nature: scoresArray[0],
                  risk: scoresArray[1],
                  ethics: scoresArray[2],
                  value: scoresArray[3],
-                 human: scoresArray[4],
+                 human: scaledHumanScorePdf, // Use scaled human score for chart
                  feasibility: scoresArray[5]
              }, pdfRadarCanvas);
 
 
-            const filename = `AI_Taxonomy_Report_${(currentResultData.taskName || 'task').replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`;
+            const filename = AI_Taxonomy_Report_${(currentResultData.taskName || 'task').replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf;
             const opt = {
                 margin: [0.5, 0.5, 0.5, 0.5], filename: filename,
                 image: { type: 'jpeg', quality: 0.98 },
